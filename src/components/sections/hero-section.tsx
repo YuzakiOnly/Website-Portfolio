@@ -1,94 +1,225 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import Lanyard from "../reactbits/Lanyard";
-import RotatingText from "../reactbits/RotatingText";
+import AnimatedContent from "../reactbits/AnimatedContent";
+import FadeContent from "../reactbits/FadeContent";
+import ScrambledText from "../reactbits/ScrambledText";
+import TextType from "../reactbits/TextType";
+import TrueFocus from "../reactbits/TrueFocus";
 
 export default function HeroSection() {
   return (
-    <div className="min-h-screen overflow-x-hidden">
+    <div className="min-h-screen overflow-hidden bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 font-montserrat">
       <div className="mx-auto h-screen max-w-7xl px-6">
         <div className="grid grid-cols-12 h-full items-center gap-8">
           <div className="col-span-12 md:col-span-6 flex flex-col gap-6 text-white z-10">
             <div className="flex items-center gap-2 flex-wrap">
-              <h2 className="text-lg">I&apos;m Ready For Job</h2>
-              <RotatingText
-                texts={["React", "Next.js", "Tailwind", "TypeScript"]}
-                mainClassName="px-3 sm:px-3 md:px-4 bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-semibold overflow-hidden py-1 sm:py-1 md:py-2 justify-center rounded-full"
-                staggerFrom={"last"}
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                exit={{ y: "-120%" }}
-                staggerDuration={0.025}
-                splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
-                transition={{ type: "spring", damping: 30, stiffness: 400 }}
-                rotationInterval={2000}
-              />
+              <AnimatedContent
+                distance={100}
+                direction="vertical"
+                reverse
+                duration={1}
+                ease="power3.out"
+                disappearEase="power3.in"
+                initialOpacity={0}
+                animateOpacity
+                scale={1}
+                threshold={0.1}
+                delay={0.5}
+              >
+                <div className="bg-linear-to-r from-emerald-500 to-emerald-600 px-4 py-1.5 rounded-full shadow-lg shadow-emerald-500/25">
+                  <h1 className="text-white font-semibold text-sm tracking-wide">
+                    M. ARYA ARDIANSYAH
+                  </h1>
+                </div>
+              </AnimatedContent>
             </div>
 
             <div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-                M. ARYA ARDIANSYAH
-              </h1>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-emerald-500">
-                Front end Developer
-              </h1>
+              <FadeContent
+                blur={true}
+                duration={1000}
+                ease="bounce-out"
+                disappearEase="bounce-in"
+                initialOpacity={0}
+                delay={1}
+              >
+                <div className="my-4">
+                  <TrueFocus
+                    sentence="Hellooo, I'm Aryaa"
+                    manualMode={false}
+                    blurAmount={5}
+                    borderColor="#10b981"
+                    animationDuration={0.8}
+                    pauseBetweenAnimations={1.5}
+                  />
+                </div>
+              </FadeContent>
+              <AnimatedContent
+                distance={100}
+                direction="horizontal"
+                reverse
+                duration={0.8}
+                ease="power3.out"
+                disappearEase="power3.in"
+                initialOpacity={0}
+                animateOpacity
+                scale={1}
+                threshold={0.1}
+                delay={0}
+              >
+                <div className="flex items-center gap-3 mt-3">
+                  <div className="h-1 w-12 bg-emerald-500 rounded-full"></div>
+                  <TextType
+                    text={[
+                      "FRONT END DEVELOPER",
+                      "UI/UX DESIGNER",
+                      "REACT EXPERT",
+                      "CREATIVE CODER",
+                    ]}
+                    typingSpeed={75}
+                    pauseDuration={1500}
+                    showCursor={true}
+                    cursorCharacter="_"
+                    deletingSpeed={50}
+                    className="text-emerald-400 font-medium tracking-wide"
+                  />
+                </div>
+              </AnimatedContent>
             </div>
 
-            <div className="space-y-3 text-gray-300">
-              <p className="flex items-center gap-2">
-                <span className="text-2xl">🇮🇩</span> Based in Indonesia •{" "}
-                <span className="text-purple-400 font-semibold">
-                  Magang Experience
-                </span>
-              </p>
-              <p className="leading-relaxed">
-                Full Stack Product Designer with expertise in analyzing systems,
-                managing teams, and creating exceptional user interfaces.
-              </p>
-              <p className="leading-relaxed">
-                Currently working as a{" "}
-                <span className="text-purple-400 font-semibold">
-                  Full Stack Product Designer
-                </span>
-                and{" "}
-                <span className="text-pink-400 font-semibold">
-                  Freelance Frontend Developer
-                </span>
-                .
-              </p>
+            <div className="space-y-4 text-gray-300 mt-2">
+              <FadeContent
+                blur={true}
+                duration={1000}
+                ease="bounce-out"
+                disappearEase="bounce-in"
+                initialOpacity={0}
+                delay={0.4}
+              >
+                <ScrambledText
+                  className="scrambled-text-demo leading-relaxed text-sm md:text-base"
+                  radius={100}
+                  duration={1.2}
+                  speed={0.5}
+                  scrambleChars=".:"
+                >
+                  A passionate front-end developer specializing in building
+                  exceptional digital experiences with a focus on responsive
+                  design. I create efficient, scalable, and user-friendly
+                  interfaces that solve real-world problems while prioritizing
+                  accessibility and performance optimization.
+                </ScrambledText>
+              </FadeContent>
+              <FadeContent
+                blur={false}
+                duration={2000}
+                ease="bounce-out"
+                disappearEase="bounce-in"
+                initialOpacity={0}
+                delay={1}
+              >
+                <div className="flex items-center gap-4 text-sm">
+                  <div className="flex items-center gap-2">
+                    <span className="text-2xl">🇮🇩</span>
+                    <span>Based in Indonesia</span>
+                  </div>
+                  <div className="w-1 h-1 bg-gray-500 rounded-full"></div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+                    <span className="text-emerald-400 font-semibold">
+                      Available for Work
+                    </span>
+                  </div>
+                </div>
+              </FadeContent>
             </div>
 
-            {/* CTA Buttons */}
-            <div className="flex gap-4 mt-4">
-              <button className="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105">
-                Hire Me
-              </button>
-              <button className="px-6 py-3 border border-emerald-500 text-emerald-500 hover:bg-emerald-500 hover:text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105">
-                Download CV
-              </button>
+            <div className="flex gap-4 mt-6">
+              <AnimatedContent
+                distance={100}
+                direction="horizontal"
+                reverse
+                duration={0.8}
+                ease="bounce.out"
+                disappearEase="bounce.in"
+                initialOpacity={0}
+                animateOpacity
+                scale={1}
+                threshold={0.1}
+                delay={1}
+              >
+                <button className="group px-8 py-3.5 bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 flex items-center gap-2 shadow-lg shadow-emerald-500/25">
+                  GET IN TOUCH
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">
+                    →
+                  </span>
+                </button>
+              </AnimatedContent>
+              <AnimatedContent
+                distance={100}
+                direction="horizontal"
+                reverse
+                duration={2}
+                ease="power3.out"
+                disappearEase="power3.in"
+                initialOpacity={0}
+                animateOpacity
+                scale={1}
+                threshold={0.1}
+                delay={0.4}
+              >
+                <button className="px-8 py-3.5 border-2 border-emerald-500 text-emerald-500 hover:bg-emerald-500 hover:text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105">
+                  MY PROJECTS
+                </button>
+              </AnimatedContent>
             </div>
           </div>
 
           <div className="col-span-12 md:col-span-6 flex justify-center items-center">
-            <div className="relative group">
-              {/* Decorative background blur */}
-              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 rounded-full blur-3xl"></div>
-
-              {/* Image Container - with overflow-hidden to prevent ping overflow */}
-              <div className="relative w-80 h-80 md:w-96 md:h-96 lg:w-[450px] lg:h-[450px]">
-                {/* Main Image Circle */}
-                <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-emerald-500/30 shadow-2xl shadow-emerald-500/20 z-10">
-                  <img
-                    src="/assets/foto1.png"
-                    alt="M. Arya Ardiansyah - Front End Developer"
-                    className="w-full h-full object-cover object-top"
-                  />
+            <AnimatedContent
+              distance={30}
+              direction="horizontal"
+              duration={1}
+              ease="bounce.out"
+              initialOpacity={0}
+              animateOpacity
+              scale={1}
+              threshold={0.1}
+              delay={1.5}
+            >
+              <div className="relative group">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-87.5 h-87.5 md:w-112.5 md:h-112.5 lg:w-137.5 lg:h-137.5 rounded-full bg-linear-to-r from-emerald-400/30 to-cyan-400/30 animate-spin-slow blur-xl"></div>
                 </div>
 
-                {/* Decorative ring animation - without causing overflow */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 animate-spin-slow"></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-95 h-95 md:w-120 md:h-120 lg:w-145 lg:h-145 rounded-full border-2 border-dashed border-emerald-400/40"></div>
+                </div>
+
+                <div className="relative w-72 h-72 md:w-96 md:h-96 lg:w-112.5 lg:h-112.5 z-10">
+                  <div className="absolute inset-0 rounded-full bg-linear-to-br from-emerald-500/10 to-cyan-500/10 backdrop-blur-sm border border-white/20"></div>
+
+                  <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white/20 shadow-2xl shadow-emerald-500/20">
+                    <img
+                      src="/assets/foto1.png"
+                      alt="M. Arya Ardiansyah - Front End Developer"
+                      className="w-full h-full object-cover object-top scale-105 transition-transform duration-500 "
+                    />
+                  </div>
+
+                  <div className="absolute -bottom-4 -right-4 w-20 h-20 bg-emerald-500/30 rounded-full blur-xl"></div>
+                  <div className="absolute -top-4 -left-4 w-16 h-16 bg-cyan-500/30 rounded-full blur-xl"></div>
+                </div>
+
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="w-105 h-105 md:w-130 md:h-130 lg:w-155 lg:h-155 rounded-full border border-emerald-400/20 animate-[spin_10s_linear_infinite]"></div>
+                </div>
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="w-115 h-115 md:w-140 md:h-140 lg:w-165 lg:h-165 rounded-full border border-cyan-400/20 animate-[spin_15s_linear_infinite_reverse]"></div>
+                </div>
               </div>
-            </div>
+            </AnimatedContent>
           </div>
         </div>
       </div>
