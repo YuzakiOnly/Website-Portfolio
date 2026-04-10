@@ -1,5 +1,5 @@
 "use client";
-import CardSwap, { Card } from "../ui/CardSwap";
+import CardSwap, { Card } from "../reactbits/CardSwap";
 
 export default function CardProps() {
   return (

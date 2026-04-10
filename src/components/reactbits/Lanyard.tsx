@@ -1,9 +1,8 @@
-/* eslint-disable react-hooks/immutability */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
+/* eslint-disable react/no-unknown-property */
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, extend, useFrame } from "@react-three/fiber";
 import {
   useGLTF,
   useTexture,
@@ -25,6 +24,8 @@ import * as THREE from "three";
 // replace with your own imports, see the usage snippet for details
 const cardGLB = "/card.glb";
 const lanyard = "/lanyard.png";
+
+extend({ MeshLineGeometry, MeshLineMaterial });
 
 interface LanyardProps {
   position?: [number, number, number];
@@ -188,15 +189,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
       curve.points[1].copy(j2.current.lerped);
       curve.points[2].copy(j1.current.lerped);
       curve.points[3].copy(fixed.current.translation());
-
-      // Update band geometry
-      if (band.current) {
-        const points = curve.getPoints(isMobile ? 16 : 32);
-        if (band.current.geometry) {
-          band.current.geometry.setPoints(points);
-        }
-      }
-
+      band.current.geometry.setPoints(curve.getPoints(isMobile ? 16 : 32));
       ang.copy(card.current.angvel());
       rot.copy(card.current.rotation());
       card.current.setAngvel({ x: ang.x, y: ang.y - rot.y * 0.25, z: ang.z });
@@ -205,27 +198,6 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
 
   curve.curveType = "chordal";
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-
-  // Inisialisasi MeshLineGeometry setelah render
-  useEffect(() => {
-    if (band.current) {
-      const geometry = new MeshLineGeometry();
-      const material = new MeshLineMaterial({
-        color: "white",
-        depthTest: false,
-        resolution: isMobile
-          ? new THREE.Vector2(1000, 2000)
-          : new THREE.Vector2(1000, 1000),
-        useMap: true,
-        map: texture,
-        repeat: new THREE.Vector2(-4, 1),
-        lineWidth: 1,
-      });
-
-      band.current.geometry = geometry;
-      band.current.material = material;
-    }
-  }, [isMobile, texture]);
 
   return (
     <>
@@ -307,7 +279,18 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }: BandProps) {
           </group>
         </RigidBody>
       </group>
-      <mesh ref={band} />
+      <mesh ref={band}>
+        <meshLineGeometry />
+        <meshLineMaterial
+          color="white"
+          depthTest={false}
+          resolution={isMobile ? [1000, 2000] : [1000, 1000]}
+          useMap
+          map={texture}
+          repeat={[-4, 1]}
+          lineWidth={1}
+        />
+      </mesh>
     </>
   );
 }

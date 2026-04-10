@@ -3,22 +3,24 @@
 
 import HeroSection from "@/components/sections/hero-section";
 import Section from "@/components/sections/section";
-import ShapeGrid from "@/components/ui/ShapeGrid";
+import LiquidEther from "@/components/reactbits/LiquidEther";
+import ShapeGrid from "@/components/reactbits/ShapeGrid";
+import SplashCursor from "@/components/reactbits/SplashCursor";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen overflow-x-hidden bg-linear-to-br from-[#1a0b2e] via-[#2d1b4e] to-[#1a0b2e]">
-      <div className="fixed inset-0 z-0 opacity-60">
+    <main className="relative min-h-screen overflow-x-hidden bg-[#0f172a]">
+      {/* <div className="fixed inset-0 z-0">
         <ShapeGrid
-          speed={0.8}
-          squareSize={40}
+          speed={0.5}
+          squareSize={30}
           direction="diagonal"
-          borderColor="#FFE66D"
+          borderColor="#ffffff"
           hoverFillColor="#4ECDC4"
           shape="square"
           hoverTrailAmount={0}
         />
-      </div>
+      </div> */}
 
       <div className="relative z-10">
         <HeroSection />
