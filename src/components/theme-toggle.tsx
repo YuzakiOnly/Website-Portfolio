@@ -3,7 +3,7 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, Monitor } from "lucide-react";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -15,47 +15,44 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <div className="w-18 h-9 rounded-full bg-white/10 animate-pulse" />
+      <div className="flex gap-1">
+        <div className="w-8 h-8 rounded-full bg-muted/50 animate-pulse" />
+        <div className="w-8 h-8 rounded-full bg-muted/50 animate-pulse" />
+        <div className="w-8 h-8 rounded-full bg-muted/50 animate-pulse" />
+      </div>
     );
   }
 
-  const isDark = theme === "dark";
+  const themes = [
+    { value: "light", icon: Sun, label: "Light", color: "amber" },
+    { value: "dark", icon: Moon, label: "Dark", color: "emerald" },
+    { value: "system", icon: Monitor, label: "System", color: "blue" },
+  ];
 
   return (
-    <button
-      onClick={() => setTheme(isDark ? "light" : "dark")}
-      aria-label="Toggle theme"
-      className={`
-        relative flex items-center gap-1.5 px-3 py-1.5 rounded-full
-        border transition-all duration-300 ease-in-out
-        text-xs font-semibold tracking-wide select-none
-        ${
-          isDark
-            ? "bg-white/10 border-white/15 text-white hover:bg-white/20"
-            : "bg-black/8 border-black/12 text-gray-800 hover:bg-black/15"
-        }
-      `}
-    >
-      <span
-        className={`
-          flex items-center justify-center w-5 h-5 rounded-full transition-all duration-300
-          ${isDark ? "bg-emerald-500/20 text-emerald-400" : "bg-amber-400/20 text-amber-500"}
-        `}
-      >
-        {isDark ? (
-          <Moon size={11} strokeWidth={2.5} />
-        ) : (
-          <Sun size={11} strokeWidth={2.5} />
-        )}
-      </span>
-      <span className="w-9 text-center">{isDark ? "Dark" : "Light"}</span>
-      {/* pill indicator */}
-      <span
-        className={`
-          absolute inset-0 rounded-full ring-1 transition-all duration-300
-          ${isDark ? "ring-emerald-500/25" : "ring-amber-400/30"}
-        `}
-      />
-    </button>
+    <div className="flex gap-1 bg-muted/50 rounded-full p-1 border border-border">
+      {themes.map(({ value, icon: Icon, label, color }) => {
+        const isActive = theme === value;
+        return (
+          <button
+            key={value}
+            onClick={() => setTheme(value)}
+            aria-label={label}
+            className={`
+              relative flex items-center justify-center
+              w-8 h-8 rounded-full transition-all duration-200 cursor-pointer
+              ${
+                isActive
+                  ? `bg-${color}-500/20 text-${color}-400 ring-1 ring-${color}-500/25`
+                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
+              }
+            `}
+            title={label}
+          >
+            <Icon size={14} strokeWidth={2.5} />
+          </button>
+        );
+      })}
+    </div>
   );
 }

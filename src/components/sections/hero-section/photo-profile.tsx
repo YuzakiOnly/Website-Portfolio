@@ -36,8 +36,7 @@ export default function PhotoProfile() {
           direction="normal"
           borderStyle="1.5px solid rgba(16,185,129,0.32)"
         />
-
-        {/* Spinning conic gradient ring — dekoratif, tetap fixed */}
+        
         <div
           className="absolute z-1 pointer-events-none"
           style={{
@@ -52,7 +51,6 @@ export default function PhotoProfile() {
             justifyContent: "center",
           }}
         >
-          {/* Inner fill pakai bg-background agar ikut tema */}
           <div
             className="bg-background"
             style={{
@@ -63,7 +61,6 @@ export default function PhotoProfile() {
           />
         </div>
 
-        {/* Photo circle */}
         <div
           className="relative z-10"
           style={{
@@ -96,7 +93,6 @@ export default function PhotoProfile() {
           </div>
         </div>
 
-        {/* Float Tags — sekarang ikut tema via FloatTag */}
         <FloatTag
           className="hidden sm:flex"
           style={{ top: "6%", right: "4%" }}
@@ -136,14 +132,13 @@ export default function PhotoProfile() {
         />
       </div>
 
-      {/* Name & title card bawah foto */}
       <div className="relative z-20 flex flex-col items-center gap-1.5 pb-2">
         <div className="flex items-center gap-3">
-          <div className="h-px w-8 md:w-10 bg-gradient-to-r from-transparent to-emerald-500" />
+          <div className="h-px w-8 md:w-10 bg-linear-to-r from-transparent to-emerald-500" />
           <span className="text-emerald-500 dark:text-emerald-400 text-[10px] md:text-xs font-semibold tracking-[0.2em] md:tracking-[0.25em] uppercase">
             Front End Developer
           </span>
-          <div className="h-px w-8 md:w-10 bg-gradient-to-l from-transparent to-emerald-500" />
+          <div className="h-px w-8 md:w-10 bg-linear-to-l from-transparent to-emerald-500" />
         </div>
         <h2 className="text-foreground font-bold tracking-widest text-center text-lg md:text-xl lg:text-2xl">
           M. ARYA ARDIANSYAH

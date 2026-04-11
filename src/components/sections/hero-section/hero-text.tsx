@@ -63,7 +63,6 @@ export default function HeroText() {
         </AnimatedContent>
       </div>
 
-      {/* Description */}
       <div className="space-y-4 text-muted-foreground">
         <FadeContent
           blur={true}
@@ -112,7 +111,6 @@ export default function HeroText() {
         </FadeContent>
       </div>
 
-      {/* Buttons */}
       <div className="flex gap-3 md:gap-4 mt-4 md:mt-6 flex-wrap justify-center md:justify-start">
         <AnimatedContent
           distance={100}
@@ -127,7 +125,7 @@ export default function HeroText() {
           threshold={0.1}
           delay={1}
         >
-          <button className="group px-6 md:px-8 py-3 md:py-3.5 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 flex items-center gap-2 shadow-lg shadow-emerald-500/25 text-sm md:text-base">
+          <button className="group px-6 md:px-8 py-3 md:py-3.5 bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 flex items-center gap-2 shadow-lg shadow-emerald-500/25 text-sm md:text-base cursor-pointer">
             GET IN TOUCH
             <span className="group-hover:translate-x-1 transition-transform duration-300">
               →
@@ -148,7 +146,7 @@ export default function HeroText() {
           threshold={0.1}
           delay={0.4}
         >
-          <button className="block md:hidden lg:block px-6 md:px-8 py-3 md:py-3.5 border-2 border-emerald-500 text-emerald-500 dark:text-emerald-400 dark:border-emerald-400 hover:bg-emerald-500 hover:text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 text-sm md:text-base">
+          <button className="block md:hidden lg:block px-6 md:px-8 py-3 md:py-3.5 border-2 border-emerald-500 text-emerald-500 dark:text-emerald-400 dark:hover:text-white   dark:border-emerald-400 hover:bg-emerald-500 hover:text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 text-sm md:text-base cursor-pointer">
             MY PROJECTS
           </button>
         </AnimatedContent>
