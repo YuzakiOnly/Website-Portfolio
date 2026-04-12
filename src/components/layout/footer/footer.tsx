@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { useLanguage } from "@/context/language-context";
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, Calendar } from "lucide-react";
 import { IoLogoInstagram, IoLogoGithub, IoLogoFacebook } from "react-icons/io5";
+import { useEffect, useState } from "react";
 
 const socials = [
   {
@@ -25,8 +27,18 @@ const socials = [
 export default function Footer() {
   const { t } = useLanguage();
   const year = new Date().getFullYear();
+  const [lastUpdated, setLastUpdated] = useState("");
 
-  // Create navLinks from translation data
+  useEffect(() => {
+    const today = new Date();
+    const formattedDate = today.toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+    setLastUpdated(formattedDate);
+  }, []);
+
   const navLinks = [
     { label: t.navAbout, href: "#about", sectionId: "about" },
     { label: t.navExperience, href: "#experience", sectionId: "work" },
@@ -135,13 +147,21 @@ export default function Footer() {
           <p className="text-[11px] font-mono text-foreground/25 text-center md:text-left">
             © {year} M. Arya Ardiansyah. {t.copyright}
           </p>
-          <p className="text-[11px] font-mono text-foreground/20 text-center md:text-right">
-            {t.builtWith} <span className="text-foreground/35">Next.js</span>
-            {" · "}
-            <span className="text-foreground/35">Tailwind CSS</span>
-            {" · "}
-            <span className="text-emerald-500/60">{t.heart}</span>
-          </p>
+          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
+            <p className="text-[11px] font-mono text-foreground/20 text-center md:text-right">
+              {t.builtWith} <span className="text-foreground/35">Next.js</span>
+              {" · "}
+              <span className="text-foreground/35">Tailwind CSS</span>
+              {" · "}
+              <span className="text-emerald-500/60">{t.heart}</span>
+            </p>
+            <div className="hidden md:block w-px h-3 bg-foreground/15" />
+            <p className="text-[11px] font-mono text-foreground/20 text-center flex items-center gap-1">
+              <Calendar className="w-3 h-3" />
+              Last updated:{" "}
+              <span className="text-foreground/35">{lastUpdated}</span>
+            </p>
+          </div>
         </div>
       </div>
     </footer>

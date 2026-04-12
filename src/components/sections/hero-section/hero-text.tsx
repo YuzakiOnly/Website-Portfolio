@@ -15,6 +15,13 @@ export default function HeroText({
 }) {
   const { t } = useLanguage(); 
 
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="flex flex-col gap-5 md:gap-6 text-foreground z-10 text-center md:text-left items-center md:items-start">
       {!mobileOnly && (
@@ -121,8 +128,11 @@ export default function HeroText({
           threshold={0.1}
           delay={1}
         >
-          <button className="group px-6 md:px-8 py-3 md:py-3.5 bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 flex items-center gap-2 shadow-lg shadow-emerald-500/25 text-sm md:text-base cursor-pointer">
-            {t.getInTouch}  
+          <button
+            onClick={() => scrollToSection("contact")}
+            className="group px-6 md:px-8 py-3 md:py-3.5 bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 flex items-center gap-2 shadow-lg shadow-emerald-500/25 text-sm md:text-base cursor-pointer"
+          >
+            {t.getInTouch}
             <ArrowRight
               size={18}
               className="transition-transform duration-300 group-hover:translate-x-1"
@@ -142,7 +152,10 @@ export default function HeroText({
           threshold={0.1}
           delay={0.4}
         >
-          <button className="px-6 md:px-8 py-3 md:py-3.5 border-2 border-emerald-500 text-emerald-500 dark:text-emerald-400 dark:hover:text-white dark:border-emerald-400 hover:bg-emerald-500 hover:text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 text-sm md:text-base cursor-pointer">
+          <button
+            onClick={() => scrollToSection("projects")}
+            className="px-6 md:px-8 py-3 md:py-3.5 border-2 border-emerald-500 text-emerald-500 dark:text-emerald-400 dark:hover:text-white dark:border-emerald-400 hover:bg-emerald-500 hover:text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 text-sm md:text-base cursor-pointer"
+          >
             {t.myProjects}
           </button>
         </AnimatedContent>

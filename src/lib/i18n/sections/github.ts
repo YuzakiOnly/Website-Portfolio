@@ -5,7 +5,7 @@ export const github = {
         githubHeadlineAccent: "Github Stats",
         githubDescription: "A snapshot of my coding activity and contributions on GitHub.",
 
-        labelRepos: "Repos",
+        labelRepos: "Repository",
         labelFollowers: "Followers",
         labelFollowing: "Following",
 

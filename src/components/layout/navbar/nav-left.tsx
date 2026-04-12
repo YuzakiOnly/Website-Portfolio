@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -70,26 +69,9 @@ export default function NavLeft() {
   const pathname = usePathname();
   const [activeSection, setActiveSection] = useState<string>("home");
 
-  if (pathname !== "/") return null;
-
-  const handleScrollToSection = (sectionId: string, e: React.MouseEvent) => {
-    e.preventDefault();
-
-    if (sectionId.startsWith("#")) {
-      const element = document.querySelector(sectionId);
-      if (element) {
-        element.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-        setActiveSection(sectionId.substring(1));
-      }
-    } else {
-      window.location.href = sectionId;
-    }
-  };
-
   useEffect(() => {
+    if (pathname !== "/") return;
+
     const sections = navItems
       .filter(
         (item) =>
@@ -97,24 +79,15 @@ export default function NavLeft() {
       )
       .map((item) => item.sectionId);
 
-    const observerOptions = {
-      root: null,
-      rootMargin: "-50% 0px -50% 0px",
-      threshold: 0,
-    };
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const sectionId = entry.target.id;
-          setActiveSection(sectionId);
-        }
-      });
-    };
-
     const observer = new IntersectionObserver(
-      observerCallback,
-      observerOptions,
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { root: null, rootMargin: "-50% 0px -50% 0px", threshold: 0 },
     );
 
     sections.forEach((sectionId) => {
@@ -123,7 +96,18 @@ export default function NavLeft() {
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [pathname]);
+
+  if (pathname !== "/") return null;
+
+  const handleScrollToSection = (sectionId: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    const element = document.querySelector(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      setActiveSection(sectionId.substring(1));
+    }
+  };
 
   return (
     <div className="hidden lg:block fixed left-6 top-1/2 -translate-y-1/2 z-50 font-instrument-sans">
@@ -165,7 +149,7 @@ export default function NavLeft() {
                     }
                   }}
                   className={`
-                    relative group flex items-center justify-center 
+                    relative group flex items-center justify-center
                     w-12 h-12 rounded-xl transition-all duration-300 ease-in-out cursor-pointer
                     ${
                       isActive
@@ -176,17 +160,15 @@ export default function NavLeft() {
                   title={item.label}
                 >
                   {item.icon}
-
                   <span
                     className={`
-                      absolute left-full ml-3 px-2.5 py-1.5 
-                      bg-gray-900 text-white text-xs font-medium rounded-md 
-                      whitespace-nowrap opacity-0 invisible 
-                      group-hover:opacity-100 group-hover:visible 
-                      transition-all duration-200 pointer-events-none 
-                      shadow-lg
+                      absolute left-full ml-3 px-2.5 py-1.5
+                      bg-gray-900 text-white text-xs font-medium rounded-md
+                      whitespace-nowrap opacity-0 invisible
+                      group-hover:opacity-100 group-hover:visible
+                      transition-all duration-200 pointer-events-none shadow-lg
                       dark:bg-gray-800 dark:text-gray-100
-                      ${isActive ? "bg-emerald-600 text-white dark:bg-emerald-600" : ""}
+                      ${isActive ? "bg-emerald-600 dark:bg-emerald-600" : ""}
                     `}
                   >
                     {item.label}

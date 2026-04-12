@@ -8,6 +8,13 @@ import { ArrowRight, GraduationCap, Hourglass } from "lucide-react";
 export default function Education() {
   const { t } = useLanguage();
 
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section className="relative bg-background py-24 flex items-center min-h-screen">
       <div className="w-full max-w-7xl mx-auto px-6 lg:px-16">
@@ -165,7 +172,10 @@ export default function Education() {
           delay={0.6}
         >
           <div className="mt-14 flex justify-center md:justify-start">
-            <button className="group px-6 md:px-8 py-3 md:py-3.5 bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 flex items-center gap-2 shadow-lg shadow-emerald-500/25 text-sm md:text-base font-montserrat cursor-pointer">
+            <button
+              onClick={() => scrollToSection("projects")}
+              className="group px-6 md:px-8 py-3 md:py-3.5 bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 flex items-center gap-2 shadow-lg shadow-emerald-500/25 text-sm md:text-base font-montserrat cursor-pointer"
+            >
               {t.projectsButton}
               <ArrowRight
                 size={18}

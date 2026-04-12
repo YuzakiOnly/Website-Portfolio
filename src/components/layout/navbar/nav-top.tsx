@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
+import { HiCursorArrowRipple } from "react-icons/hi2";
 import ReactCountryFlag from "react-country-flag";
 import { ThemeToggle } from "@/components/theme-toggle";
 import AnimatedContent from "@/components/reactbits/AnimatedContent";
@@ -111,9 +112,14 @@ export default function NavTop() {
                         : "bg-muted-foreground/40"
                     }`}
                   />
-                  <span className="text-xs font-semibold font-montserrat tracking-wider">
-                    FX
-                  </span>
+                  <HiCursorArrowRipple
+                    size={14}
+                    className={`transition-colors duration-300 ${
+                      splashEnabled
+                        ? "text-emerald-400"
+                        : "text-muted-foreground/40"
+                    }`}
+                  />
                 </Button>
                 <ThemeToggle />
               </div>

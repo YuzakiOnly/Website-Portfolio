@@ -9,7 +9,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 
 export default function WorkExperience() {
   const { t } = useLanguage();
@@ -45,7 +45,24 @@ export default function WorkExperience() {
       current: t.exp3Current,
       currentLabel: t.exp3Current,
     },
+    {
+      role: t.exp4Role,
+      company: t.exp4Company,
+      period: t.exp4Period,
+      location: t.exp4Location,
+      description: t.exp4Description,
+      tags: t.exp4Tags,
+      current: t.exp4Current,
+      currentLabel: t.exp4Current,
+    },
   ];
+
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <section className="relative bg-background min-h-screen flex items-center py-24">
@@ -190,11 +207,15 @@ export default function WorkExperience() {
           delay={0.6}
         >
           <div className="mt-14 flex justify-center md:justify-start">
-            <button className="group px-6 md:px-8 py-3 md:py-3.5 bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 flex items-center gap-2 shadow-lg shadow-emerald-500/25 text-sm md:text-base font-montserrat cursor-pointer">
+            <button
+              onClick={() => scrollToSection("projects")}
+              className="group px-6 md:px-8 py-3 md:py-3.5 bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 flex items-center gap-2 shadow-lg shadow-emerald-500/25 text-sm md:text-base font-montserrat cursor-pointer"
+            >
               {t.projectsButton}
-              <span className="group-hover:translate-x-1 transition-transform duration-300">
-                →
-              </span>
+              <ArrowRight
+                size={18}
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
             </button>
           </div>
         </AnimatedContent>

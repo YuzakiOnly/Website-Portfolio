@@ -29,7 +29,7 @@ export const contact = {
         errorMessage: "Failed to send message. Please try again later.",
         errorRequired: "All fields are required.",
 
-        locationValue: "Banyuwangi, Indonesia",
+        locationValue: "Banyuwangi,  Jawa Timur, Indonesia",
     },
     id: {
         contactTag: "Kontak",
@@ -61,6 +61,6 @@ export const contact = {
         errorMessage: "Gagal mengirim pesan. Coba lagi nanti.",
         errorRequired: "Semua field wajib diisi.",
 
-        locationValue: "Banyuwangi, Indonesia",
+        locationValue: "Banyuwangi,  Jawa Timur, Indonesia",
     },
 } as const;

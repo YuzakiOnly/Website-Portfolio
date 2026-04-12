@@ -2,13 +2,13 @@ export const hero = {
     en: {
         greeting: "Hellooo, I'm Aryaa.",
         roles: [
+            "FULL STACK DEVELOPER",
             "FRONT END DEVELOPER",
             "UI/UX DESIGNER",
-            "REACT EXPERT",
             "CREATIVE CODER",
         ],
         description:
-            "A passionate front-end developer specializing in building exceptional digital experiences with a focus on responsive design. I create efficient, scalable, and user-friendly interfaces that solve real-world problems while prioritizing accessibility and performance optimization.",
+            "A passionate full stack developer specializing in building complete web solutions from database to user interface. I create efficient, scalable, and user-friendly applications that solve real-world problems while prioritizing performance, security, and seamless integration between front-end and back-end systems.",
         location: "Based in Indonesia",
         available: "Available for Work",
         getInTouch: "GET IN TOUCH",
@@ -17,13 +17,13 @@ export const hero = {
     id: {
         greeting: "Halooo, Saya Aryaa.",
         roles: [
+            "FULL STACK DEVELOPER",
             "FRONT END DEVELOPER",
-            "DESAINER UI/UX",
-            "AHLI REACT",
+            "UI/UX DESIGNER",
             "CREATIVE CODER",
         ],
         description:
-            "Seorang front-end developer yang bersemangat dalam membangun pengalaman digital luar biasa dengan fokus pada desain responsif. Saya membuat antarmuka yang efisien, skalabel, dan ramah pengguna untuk memecahkan masalah nyata dengan mengutamakan aksesibilitas dan optimasi performa.",
+            "Seorang full stack developer yang bersemangat dalam membangun solusi web lengkap dari database hingga antarmuka pengguna. Saya membuat aplikasi yang efisien, skalabel, dan ramah pengguna untuk memecahkan masalah nyata dengan mengutamakan performa, keamanan, dan integrasi mulus antara sistem front-end dan back-end.",
         location: "Berbasis di Indonesia",
         available: "Siap Bekerja",
         getInTouch: "HUBUNGI SAYA",

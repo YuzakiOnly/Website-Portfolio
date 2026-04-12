@@ -136,7 +136,7 @@ export default function PhotoProfile() {
         <div className="flex items-center gap-3">
           <div className="h-px w-8 md:w-10 bg-linear-to-r from-transparent to-emerald-500" />
           <span className="text-emerald-500 dark:text-emerald-400 text-[10px] md:text-xs font-semibold tracking-[0.2em] md:tracking-[0.25em] uppercase">
-            Front End Developer
+            Full Stack Developer
           </span>
           <div className="h-px w-8 md:w-10 bg-linear-to-l from-transparent to-emerald-500" />
         </div>

@@ -44,8 +44,8 @@ export default function Contact() {
     {
       icon: Mail,
       label: t.emailLabel,
-      value: "yuzaki@example.com",
-      href: "mailto:yuzaki@example.com",
+      value: "maryaardiansyah7@gmail.com",
+      href: "mailto:maryaardiansyah7@gmail.com",
     },
     {
       icon: MapPin,

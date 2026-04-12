@@ -1,3 +1,4 @@
+import { errorNotFound } from "./errors/error-notfound";
 import { footer } from "./footer/footer";
 import { about } from "./sections/about";
 import { contact } from "./sections/contact";
@@ -19,6 +20,7 @@ export const translations = {
         ...projects.en,
         ...contact.en,
         ...footer.en,
+        ...errorNotFound.en,
     },
     id: {
         ...hero.id,
@@ -30,6 +32,7 @@ export const translations = {
         ...projects.id,
         ...contact.id,
         ...footer.id,
+        ...errorNotFound.id,
     },
 } as const;
 

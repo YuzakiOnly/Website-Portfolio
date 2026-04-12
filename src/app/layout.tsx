@@ -31,8 +31,8 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
-  title: "M. ARYA ARDIANSYAH — Front End Developer",
-  description: "Portfolio of M. ARYA ARDIANSYAH, Front End Developer",
+  title: "M. ARYA ARDIANSYAH — Full Stack Developer",
+  description: "Portfolio of M. ARYA ARDIANSYAH, Full Stack Developer",
 };
 
 export default function RootLayout({

@@ -9,7 +9,7 @@ export const education = {
         currentStatus: "Fresh Graduated",
         currentSchool: "SMK Negeri 1 Banyuwangi",
         currentLocation: "Banyuwangi, ID",
-        currentPeriod: "2022 — 2025",
+        currentPeriod: "2023 — 2026",
         currentDescription: "Vocational education in software development. Learned programming fundamentals, web development, and database over three years.",
         currentSkills: ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "Laravel"],
 
@@ -27,10 +27,10 @@ export const education = {
         educationDescription: "Latar belakang pendidikan saya dan jalan ke depan.",
 
         currentDegree: "Rekayasa Perangkat Lunak",
-        currentStatus: "Lulus",
+        currentStatus: "Lulusan Baru",
         currentSchool: "SMK Negeri 1 Banyuwangi",
         currentLocation: "Banyuwangi, ID",
-        currentPeriod: "2022 — 2025",
+        currentPeriod: "2023 — 2026",
         currentDescription: "Menempuh pendidikan kejuruan di bidang pengembangan perangkat lunak. Mempelajari dasar-dasar pemrograman, web development, dan database selama tiga tahun.",
         currentSkills: ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "Laravel"],
 
