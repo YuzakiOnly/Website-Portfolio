@@ -1,30 +1,35 @@
 "use client";
 
 import { useEffect } from "react";
-import Lenis from "lenis";
 
 export default function SmoothScroll() {
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
-      infinite: false,
-    });
+    document.documentElement.style.scrollBehavior = "smooth";
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest('a[href^="#"]');
 
-    requestAnimationFrame(raf);
+      if (anchor) {
+        const href = anchor.getAttribute("href");
+        if (href && href !== "#") {
+          const targetElement = document.querySelector(href);
+          if (targetElement) {
+            e.preventDefault();
+            targetElement.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        }
+      }
+    };
+
+    document.addEventListener("click", handleAnchorClick);
 
     return () => {
-      lenis.destroy();
+      document.documentElement.style.scrollBehavior = "";
+      document.removeEventListener("click", handleAnchorClick);
     };
   }, []);
 

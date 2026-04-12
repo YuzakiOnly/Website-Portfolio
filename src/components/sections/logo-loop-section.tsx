@@ -258,7 +258,7 @@ export default function LogoLoopSection() {
         <div className="absolute inset-y-0 left-0 w-16 bg-linear-to-r from-black/50 to-transparent z-10 pointer-events-none dark:from-black/50" />
         <div className="absolute inset-y-0 right-0 w-16 bg-linear-to-l from-black/50 to-transparent z-10 pointer-events-none dark:from-black/50" />
 
-        <div className="logo-loop-track flex items-center py-2.5">
+        <div className="logo-loop-track flex items-center py-5">
           {allLogos.map((logo, i) => (
             <div
               key={i}

@@ -5,13 +5,13 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import {
   VscHome,
-  VscArchive,
-  VscAccount,
-  VscSettingsGear,
-  VscHeart,
   VscInfo,
-  VscBell,
+  VscCode,
+  VscBriefcase,
+  VscTools,
+  VscMail,
 } from "react-icons/vsc";
+import { FaGraduationCap, FaGithub } from "react-icons/fa";
 import AnimatedContent from "@/components/reactbits/AnimatedContent";
 import FadeContent from "@/components/reactbits/FadeContent";
 
@@ -24,29 +24,51 @@ const navItems = [
   },
   {
     icon: <VscInfo size={24} />,
-    label: "About Us",
+    label: "About",
     href: "#about",
     sectionId: "about",
   },
   {
-    icon: <VscHeart size={24} />,
-    label: "Favorites",
-    href: "#dddd",
-    sectionId: "dddd",
+    icon: <FaGraduationCap size={24} />,
+    label: "Education",
+    href: "#education",
+    sectionId: "education",
   },
-  { icon: <VscArchive size={24} />, label: "Archive", href: "/archive" },
-  { icon: <VscAccount size={24} />, label: "Profile", href: "/profile" },
-  { icon: <VscSettingsGear size={24} />, label: "Settings", href: "/settings" },
   {
-    icon: <VscBell size={24} />,
-    label: "Notifications",
-    href: "/notifications",
+    icon: <VscBriefcase size={24} />,
+    label: "Work",
+    href: "#work",
+    sectionId: "work",
+  },
+  {
+    icon: <VscTools size={24} />,
+    label: "Skills",
+    href: "#skills",
+    sectionId: "skills",
+  },
+  {
+    icon: <FaGithub size={24} />,
+    label: "GitHub",
+    href: "#github",
+    sectionId: "github",
+  },
+  {
+    icon: <VscCode size={24} />,
+    label: "Projects",
+    href: "#projects",
+    sectionId: "projects",
+  },
+  {
+    icon: <VscMail size={24} />,
+    label: "Contact",
+    href: "#contact",
+    sectionId: "contact",
   },
 ];
 
 export default function NavLeft() {
   const pathname = usePathname();
-  const [activeSection, setActiveSection] = useState<string>("hero");
+  const [activeSection, setActiveSection] = useState<string>("home");
 
   if (pathname !== "/") return null;
 
@@ -104,7 +126,7 @@ export default function NavLeft() {
   }, []);
 
   return (
-    <div className="hidden lg:block fixed left-6 top-1/2 -translate-y-1/2 z-50">
+    <div className="hidden lg:block fixed left-6 top-1/2 -translate-y-1/2 z-50 font-instrument-sans">
       <AnimatedContent
         distance={50}
         direction="horizontal"
@@ -154,15 +176,17 @@ export default function NavLeft() {
                   title={item.label}
                 >
                   {item.icon}
+
                   <span
                     className={`
-                      absolute left-full ml-3 px-2 py-1 
-                      bg-popover text-popover-foreground text-xs rounded-md 
+                      absolute left-full ml-3 px-2.5 py-1.5 
+                      bg-gray-900 text-white text-xs font-medium rounded-md 
                       whitespace-nowrap opacity-0 invisible 
                       group-hover:opacity-100 group-hover:visible 
                       transition-all duration-200 pointer-events-none 
-                      border border-border shadow-lg font-inter
-                      ${isActive ? "bg-emerald-500 text-white border-emerald-400" : ""}
+                      shadow-lg
+                      dark:bg-gray-800 dark:text-gray-100
+                      ${isActive ? "bg-emerald-600 text-white dark:bg-emerald-600" : ""}
                     `}
                   >
                     {item.label}

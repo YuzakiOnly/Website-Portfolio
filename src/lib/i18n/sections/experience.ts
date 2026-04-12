@@ -1,0 +1,68 @@
+export const experience = {
+    en: {
+        experienceTag: "Work Experience",
+        experienceHeadline1: "Where I've",
+        experienceHeadlineAccent: "Made Impact",
+        experienceDescription: "My professional journey through various roles and startups.",
+
+        projectsButton: "See My Projects",
+
+        exp1Role: "Senior Frontend Developer",
+        exp1Company: "Tech Company Inc.",
+        exp1Period: "2023 — Present",
+        exp1Location: "Remote",
+        exp1Description: "Led development of scalable web applications using React and Next.js. Collaborated with design and backend teams to ship features that improved user retention by 30%.",
+        exp1Tags: ["React", "Next.js", "TypeScript", "Tailwind"],
+        exp1Current: true,
+        exp1CurrentLabel: "Now",
+
+        exp2Role: "Frontend Developer",
+        exp2Company: "Startup Studio",
+        exp2Period: "2021 — 2023",
+        exp2Location: "Surabaya, ID",
+        exp2Description: "Built and maintained multiple client-facing products. Introduced component library that cut development time by 40% across projects.",
+        exp2Tags: ["Vue.js", "Nuxt", "SCSS", "Figma"],
+        exp2Current: false,
+
+        exp3Role: "Junior Web Developer",
+        exp3Company: "Digital Agency",
+        exp3Period: "2019 — 2021",
+        exp3Location: "Surabaya, ID",
+        exp3Description: "Developed landing pages and e-commerce solutions for various clients. Gained strong foundations in responsive design and cross-browser compatibility.",
+        exp3Tags: ["HTML", "CSS", "JavaScript", "WordPress"],
+        exp3Current: false,
+    },
+    id: {
+        experienceTag: "Pengalaman Kerja",
+        experienceHeadline1: "Tempat Saya",
+        experienceHeadlineAccent: "Memberikan Dampak",
+        experienceDescription: "Perjalanan profesional saya melalui berbagai peran dan startup.",
+
+        projectsButton: "Lihat Proyek Saya",
+
+        exp1Role: "Senior Frontend Developer",
+        exp1Company: "Tech Company Inc.",
+        exp1Period: "2023 — Sekarang",
+        exp1Location: "Remote",
+        exp1Description: "Memimpin pengembangan aplikasi web skalabel menggunakan React dan Next.js. Berkolaborasi dengan tim desain dan backend untuk merilis fitur yang meningkatkan retensi pengguna sebesar 30%.",
+        exp1Tags: ["React", "Next.js", "TypeScript", "Tailwind"],
+        exp1Current: true,
+        exp1CurrentLabel: "Sekarang",
+
+        exp2Role: "Frontend Developer",
+        exp2Company: "Startup Studio",
+        exp2Period: "2021 — 2023",
+        exp2Location: "Surabaya, ID",
+        exp2Description: "Membangun dan memelihara berbagai produk untuk klien. Memperkenalkan library komponen yang memotong waktu pengembangan sebesar 40% di seluruh proyek.",
+        exp2Tags: ["Vue.js", "Nuxt", "SCSS", "Figma"],
+        exp2Current: false,
+
+        exp3Role: "Junior Web Developer",
+        exp3Company: "Digital Agency",
+        exp3Period: "2019 — 2021",
+        exp3Location: "Surabaya, ID",
+        exp3Description: "Mengembangkan landing page dan solusi e-commerce untuk berbagai klien. Mendapatkan fondasi yang kuat dalam desain responsif dan kompatibilitas lintas browser.",
+        exp3Tags: ["HTML", "CSS", "JavaScript", "WordPress"],
+        exp3Current: false,
+    },
+} as const;

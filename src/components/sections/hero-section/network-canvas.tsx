@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -21,13 +20,18 @@ type Particle = {
   pulseSpeed: number;
 };
 
-export default function NetworkCanvas() {
+export default function NetworkCanvas({
+  fullScreen = false,
+}: {
+  fullScreen?: boolean;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number | null>(null);
   const particlesRef = useRef<Particle[]>([]);
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const isLight = resolvedTheme === "light";
+
+  const isLight = mounted ? resolvedTheme === "light" : false;
 
   useEffect(() => {
     setMounted(true);
@@ -35,17 +39,20 @@ export default function NetworkCanvas() {
 
   useEffect(() => {
     if (!mounted) return;
-
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
+      canvas.width = fullScreen
+        ? (canvas.parentElement?.offsetWidth ?? window.innerWidth)
+        : canvas.offsetWidth;
+      canvas.height = fullScreen
+        ? (canvas.parentElement?.offsetHeight ?? window.innerHeight)
+        : canvas.offsetHeight;
 
-      const PARTICLE_COUNT = 65;
+      const PARTICLE_COUNT = fullScreen ? 80 : 65;
       const activeColors = isLight ? COLORS.light : COLORS.dark;
       particlesRef.current = Array.from({ length: PARTICLE_COUNT }, () => ({
         x: Math.random() * canvas.width,
@@ -132,47 +139,46 @@ export default function NetworkCanvas() {
     draw();
 
     return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
       window.removeEventListener("resize", resize);
     };
-  }, [mounted]); 
+  }, [mounted, fullScreen]);
 
   useEffect(() => {
     if (!mounted || particlesRef.current.length === 0) return;
-
     const activeColors = isLight ? COLORS.light : COLORS.dark;
-
     for (let i = 0; i < particlesRef.current.length; i++) {
       particlesRef.current[i].color =
         activeColors[Math.floor(Math.random() * activeColors.length)];
     }
   }, [isLight, mounted]);
 
-  if (!mounted) {
-    return (
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full pointer-events-none"
-        style={{
-          zIndex: 0,
-          opacity: 0,
-          transition: "opacity 0.3s ease",
-        }}
-      />
-    );
-  }
+  const opacity = !mounted ? 0 : isLight ? 0.85 : 0.6;
+
+  const fullScreenStyle: React.CSSProperties = {
+    position: "absolute",
+    inset: 0,
+    width: "100%",
+    height: "100%",
+    zIndex: 0,
+    opacity,
+    transition: "opacity 0.3s ease",
+    pointerEvents: "none",
+  };
+
+  const defaultStyle: React.CSSProperties = {
+    zIndex: 0,
+    opacity,
+    transition: "opacity 0.3s ease",
+  };
 
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none"
-      style={{
-        zIndex: 0,
-        opacity: isLight ? 0.85 : 0.6,
-        transition: "opacity 0.3s ease",
-      }}
+      className={
+        fullScreen ? "" : "absolute inset-0 w-full h-full pointer-events-none"
+      }
+      style={fullScreen ? fullScreenStyle : defaultStyle}
     />
   );
 }

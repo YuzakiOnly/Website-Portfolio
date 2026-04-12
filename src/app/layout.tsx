@@ -1,10 +1,13 @@
-// layout.tsx
 import type { Metadata } from "next";
 import "./globals.css";
 import { Inter, Montserrat, Instrument_Sans, Syne } from "next/font/google";
 import Navbar from "@/components/layout/main-navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import SmoothScroll from "@/components/smooth-scroll";
+import { LanguageProvider } from "@/context/language-context";
+import { SplashCursorProvider } from "@/context/splash-cursor-context";
+import Footer from "@/components/layout/footer/footer";
+import SplashCursor from "@/components/reactbits/SplashCursor";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,7 +24,6 @@ const instrumentSans = Instrument_Sans({
   variable: "--font-instrument-sans",
 });
 
-// Tambahkan font Syne
 const syne = Syne({
   subsets: ["latin"],
   variable: "--font-syne",
@@ -35,9 +37,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html
       lang="en"
@@ -51,9 +53,15 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange={false}
         >
-          <SmoothScroll />
-          <Navbar />
-          <main>{children}</main>
+          <LanguageProvider>
+            <SplashCursorProvider>
+              <SmoothScroll />
+              <SplashCursor />
+              <Navbar />
+              <main>{children}</main>
+              <Footer />
+            </SplashCursorProvider>
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

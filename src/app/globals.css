@@ -51,44 +51,33 @@
   --font-sans: var(--font-sans);
 }
 
-/* ─── LIGHT MODE ─────────────────────────────────────────────
-   Palette: soft mint-cream background, deep forest text,
-   emerald accents — tidak flat putih polos
-──────────────────────────────────────────────────────────── */
 :root {
   /* Base */
-  --background: oklch(0.97 0.012 150); /* #f0faf4 — mint cream */
-  --foreground: oklch(0.15 0.025 160); /* deep forest */
+  --background: oklch(0.97 0.012 150); 
+  --foreground: oklch(0.15 0.025 160); 
 
-  /* Card & Popover */
-  --card: oklch(1 0.006 150); /* near-white with green tint */
+  --card: oklch(1 0.006 150);
   --card-foreground: oklch(0.15 0.025 160);
   --popover: oklch(1 0.006 150);
   --popover-foreground: oklch(0.15 0.025 160);
 
-  /* Primary — emerald */
-  --primary: oklch(0.52 0.17 162); /* emerald-600 */
+  --primary: oklch(0.52 0.17 162); 
   --primary-foreground: oklch(0.98 0.005 150);
 
-  /* Secondary */
-  --secondary: oklch(0.92 0.018 155); /* muted mint */
+  --secondary: oklch(0.92 0.018 155); 
   --secondary-foreground: oklch(0.25 0.03 160);
 
-  /* Muted */
   --muted: oklch(0.93 0.012 150);
   --muted-foreground: oklch(0.48 0.02 155);
 
-  /* Accent */
-  --accent: oklch(0.88 0.06 162); /* soft emerald tint */
+  --accent: oklch(0.88 0.06 162); 
   --accent-foreground: oklch(0.2 0.05 160);
 
-  /* States */
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.84 0.025 155);
   --input: oklch(0.88 0.018 155);
   --ring: oklch(0.52 0.17 162);
 
-  /* Charts */
   --chart-1: oklch(0.52 0.17 162);
   --chart-2: oklch(0.58 0.18 195);
   --chart-3: oklch(0.55 0.19 280);
@@ -97,7 +86,6 @@
 
   --radius: 0.625rem;
 
-  /* Sidebar */
   --sidebar: oklch(0.95 0.014 152);
   --sidebar-foreground: oklch(0.15 0.025 160);
   --sidebar-primary: oklch(0.52 0.17 162);
@@ -108,51 +96,39 @@
   --sidebar-ring: oklch(0.52 0.17 162);
 }
 
-/* ─── DARK MODE ──────────────────────────────────────────────
-   Palette: deep forest black (bukan abu/slate biasa),
-   lebih hangat dengan undertone hijau gelap
-──────────────────────────────────────────────────────────── */
 .dark {
   /* Base */
-  --background: oklch(0.1 0.018 160); /* #0a0f0a — deep forest black */
-  --foreground: oklch(0.95 0.01 150); /* soft mint white */
+  --background: oklch(0.1 0.018 160);
+  --foreground: oklch(0.95 0.01 150); 
 
-  /* Card & Popover */
-  --card: oklch(0.155 0.018 158); /* slightly lighter than bg */
+  --card: oklch(0.155 0.018 158);
   --card-foreground: oklch(0.95 0.01 150);
   --popover: oklch(0.155 0.018 158);
   --popover-foreground: oklch(0.95 0.01 150);
 
-  /* Primary — brighter emerald for dark bg */
-  --primary: oklch(0.72 0.19 162); /* emerald-400 */
+  --primary: oklch(0.72 0.19 162);
   --primary-foreground: oklch(0.1 0.018 160);
 
-  /* Secondary */
   --secondary: oklch(0.22 0.022 158);
   --secondary-foreground: oklch(0.9 0.01 150);
 
-  /* Muted */
   --muted: oklch(0.2 0.018 160);
   --muted-foreground: oklch(0.6 0.015 155);
 
-  /* Accent */
   --accent: oklch(0.24 0.035 162);
   --accent-foreground: oklch(0.9 0.01 150);
 
-  /* States */
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 8%);
   --input: oklch(1 0 0 / 12%);
   --ring: oklch(0.72 0.19 162);
 
-  /* Charts */
   --chart-1: oklch(0.72 0.19 162);
   --chart-2: oklch(0.7 0.18 195);
   --chart-3: oklch(0.65 0.19 280);
   --chart-4: oklch(0.68 0.2 330);
   --chart-5: oklch(0.72 0.18 60);
 
-  /* Sidebar */
   --sidebar: oklch(0.13 0.018 158);
   --sidebar-foreground: oklch(0.95 0.01 150);
   --sidebar-primary: oklch(0.72 0.19 162);
