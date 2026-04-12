@@ -2,7 +2,7 @@ export const footer = {
     en: {
         brandName: "M. Arya",
         brandAccent: ".dev",
-        brandDescription: "Frontend developer from Banyuwangi who loves building clean and functional web interfaces.",
+        brandDescription: "Full Stack developer from Banyuwangi passionate about creating seamless end-to-end web experiences.",
 
         openToOpportunities: "Open to opportunities",
 
@@ -27,7 +27,7 @@ export const footer = {
     id: {
         brandName: "M. Arya",
         brandAccent: ".dev",
-        brandDescription: "Frontend developer dari Banyuwangi yang senang membangun antarmuka web yang bersih dan fungsional.",
+        brandDescription: "Full Stack developer dari Banyuwangi yang bersemangat menciptakan pengalaman web end-to-end yang mulus.",
 
         openToOpportunities: "Terbuka untuk peluang",
 

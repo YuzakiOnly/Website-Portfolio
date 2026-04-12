@@ -81,7 +81,7 @@ export default function PhotoProfile() {
             }}
           >
             <img
-              src="/assets/foto1.png"
+              src="/assets/Profile.png"
               alt="M. Arya Ardiansyah - Front End Developer"
               style={{
                 width: "100%",

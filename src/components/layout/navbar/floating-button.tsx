@@ -104,7 +104,7 @@ export default function FloatingButtons() {
       sub: "Cv_Arya.PDF",
       onClick: () => {
         const link = document.createElement("a");
-        link.href = "/cv.pdf";
+        link.href = "/assets/CV_M_ARYA_ARDIANSYAH.pdf";
         link.download = "CV-M-Arya-Ardiansyah.pdf";
         document.body.appendChild(link);
         link.click();
