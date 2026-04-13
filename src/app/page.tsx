@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import AboutUs from "@/components/sections/about-us";
@@ -12,7 +13,7 @@ import MySkills from "@/components/sections/my-skills";
 import WorkExperience from "@/components/sections/work-experience";
 import Contact from "@/components/sections/contact";
 
-export default function Home() {
+function HomeContent() {
   const projectsRef = useRef<HTMLElement>(null);
   const searchParams = useSearchParams();
 
@@ -56,5 +57,13 @@ export default function Home() {
         </section>
       </div>
     </main>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div className="min-h-screen" />}>
+      <HomeContent />
+    </Suspense>
   );
 }
