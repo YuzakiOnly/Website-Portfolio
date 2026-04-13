@@ -75,6 +75,7 @@ export default function HeroText({
 
       <div className="space-y-4 text-muted-foreground">
         <FadeContent
+          key={t.description}
           blur
           duration={1000}
           ease="bounce-out"
@@ -82,6 +83,7 @@ export default function HeroText({
           delay={0.4}
         >
           <ScrambledText
+            key={t.description}
             className="scrambled-text-demo leading-relaxed text-sm md:text-base"
             radius={100}
             duration={1.2}
