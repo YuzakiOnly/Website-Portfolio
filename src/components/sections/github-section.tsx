@@ -11,6 +11,22 @@ import { GitFork, Star, Users, BookOpen, ExternalLink } from "lucide-react";
 
 const GITHUB_USERNAME = "YuzakiOnly";
 
+const TARGET_REPOSITORIES = [
+  "Website-Portfolio",
+  "Jaga-Modal",
+  "Laporin_Banyuwangi",
+  "Recipes_QuestCoff",
+];
+
+const REPO_FILTER_CONFIG = {
+  mode: "whitelist" as "whitelist" | "featured", 
+  maxRepos: 6, 
+  minStars: 0, 
+  excludeForks: true, 
+  excludeArchived: true, 
+  sortBy: "stars" as "stars" | "updated" | "created", 
+};
+
 interface GitHubProfile {
   name: string;
   bio: string;
@@ -29,6 +45,11 @@ interface GitHubRepo {
   stargazers_count: number;
   forks_count: number;
   language: string | null;
+  fork: boolean;
+  archived: boolean;
+  updated_at: string;
+  created_at: string;
+  topics?: string[];
 }
 
 const languageColors: Record<string, string> = {
@@ -39,6 +60,9 @@ const languageColors: Record<string, string> = {
   CSS: "#563d7c",
   Vue: "#41b883",
   Python: "#3572A5",
+  Java: "#b07219",
+  Go: "#00ADD8",
+  Rust: "#dea584",
   default: "#6e7681",
 };
 
@@ -47,36 +71,106 @@ export default function GitHubSection() {
   const [profile, setProfile] = useState<GitHubProfile | null>(null);
   const [repos, setRepos] = useState<GitHubRepo[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 });
 
   useEffect(() => {
     async function fetchGitHub() {
       try {
+        setError(null);
+
         const [profileRes, reposRes] = await Promise.all([
           fetch(`https://api.github.com/users/${GITHUB_USERNAME}`),
           fetch(
-            `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=6`,
+            `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`, // Fetch lebih banyak untuk filtering
           ),
         ]);
+
+        if (!profileRes.ok || !reposRes.ok) {
+          throw new Error("Failed to fetch GitHub data");
+        }
+
         const profileData = await profileRes.json();
         const reposData = await reposRes.json();
+
         setProfile(profileData);
-        setRepos(reposData);
+
+        let filteredRepos = [...reposData];
+
+        if (
+          REPO_FILTER_CONFIG.mode === "whitelist" &&
+          TARGET_REPOSITORIES.length > 0
+        ) {
+          filteredRepos = filteredRepos.filter((repo: GitHubRepo) =>
+            TARGET_REPOSITORIES.includes(repo.name),
+          );
+        } else if (REPO_FILTER_CONFIG.mode === "featured") {
+          filteredRepos = filteredRepos.filter(
+            (repo: GitHubRepo) =>
+              repo.topics?.includes("featured") ||
+              repo.topics?.includes("portfolio") ||
+              repo.description?.toLowerCase().includes("project") ||
+              repo.description?.toLowerCase().includes("app") ||
+              repo.stargazers_count > 2,
+          );
+        }
+
+        if (REPO_FILTER_CONFIG.excludeForks) {
+          filteredRepos = filteredRepos.filter(
+            (repo: GitHubRepo) => !repo.fork,
+          );
+        }
+
+        if (REPO_FILTER_CONFIG.excludeArchived) {
+          filteredRepos = filteredRepos.filter(
+            (repo: GitHubRepo) => !repo.archived,
+          );
+        }
+
+        if (REPO_FILTER_CONFIG.minStars > 0) {
+          filteredRepos = filteredRepos.filter(
+            (repo: GitHubRepo) =>
+              repo.stargazers_count >= REPO_FILTER_CONFIG.minStars,
+          );
+        }
+
+        if (REPO_FILTER_CONFIG.sortBy === "stars") {
+          filteredRepos.sort(
+            (a: GitHubRepo, b: GitHubRepo) =>
+              b.stargazers_count - a.stargazers_count,
+          );
+        } else if (REPO_FILTER_CONFIG.sortBy === "updated") {
+          filteredRepos.sort(
+            (a: GitHubRepo, b: GitHubRepo) =>
+              new Date(b.updated_at).getTime() -
+              new Date(a.updated_at).getTime(),
+          );
+        } else if (REPO_FILTER_CONFIG.sortBy === "created") {
+          filteredRepos.sort(
+            (a: GitHubRepo, b: GitHubRepo) =>
+              new Date(b.created_at).getTime() -
+              new Date(a.created_at).getTime(),
+          );
+        }
+
+        setRepos(filteredRepos.slice(0, REPO_FILTER_CONFIG.maxRepos));
       } catch (e) {
-        console.error(e);
+        console.error("Error fetching GitHub data:", e);
+        setError("Failed to load GitHub data. Please try again later.");
       } finally {
         setLoading(false);
       }
     }
+
     fetchGitHub();
   }, []);
 
   const stats = profile
     ? [
-        { label: t.labelRepos , value: profile.public_repos, icon: BookOpen },
-        { label: t.labelFollowers , value: profile.followers, icon: Users },
-        { label: t.labelFollowing , value: profile.following, icon: Users },
+        { label: t.labelRepos, value: profile.public_repos, icon: BookOpen },
+        { label: t.labelFollowers, value: profile.followers, icon: Users },
+        { label: t.labelFollowing, value: profile.following, icon: Users },
       ]
     : [];
 
@@ -148,6 +242,10 @@ export default function GitHubSection() {
                 <div key={i} className="h-36 rounded-2xl bg-foreground/5" />
               ))}
             </div>
+          </div>
+        ) : error ? (
+          <div className="text-center py-12">
+            <p className="text-red-500 font-mono text-sm">{error}</p>
           </div>
         ) : (
           <div ref={ref} className="flex flex-col gap-10">
@@ -267,60 +365,68 @@ export default function GitHubSection() {
               </div>
             </FadeContent>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {repos.map((repo, i) => (
-                <FadeContent
-                  key={repo.id}
-                  blur
-                  duration={700}
-                  ease="ease-out"
-                  initialOpacity={0}
-                  delay={0.4 + i * 0.07}
-                >
-                  <a
-                    href={repo.html_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex flex-col gap-3 p-5 rounded-2xl border border-foreground/8 bg-foreground/2 hover:bg-foreground/5 hover:border-emerald-500/20 transition-all duration-300 h-full"
+            {repos.length === 0 ? (
+              <div className="text-center py-12 border border-foreground/8 rounded-2xl bg-foreground/2">
+                <p className="text-foreground/40 font-mono text-sm">
+                  No featured repositories to display.
+                </p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {repos.map((repo, i) => (
+                  <FadeContent
+                    key={repo.id}
+                    blur
+                    duration={700}
+                    ease="ease-out"
+                    initialOpacity={0}
+                    delay={0.4 + i * 0.07}
                   >
-                    <div className="flex items-start justify-between gap-2">
-                      <h4 className="text-sm font-bold text-foreground font-syne group-hover:text-emerald-500 transition-colors duration-300 leading-snug">
-                        {repo.name}
-                      </h4>
-                      <ExternalLink className="w-3.5 h-3.5 text-foreground/20 group-hover:text-emerald-500 shrink-0 mt-0.5 transition-colors duration-300" />
-                    </div>
+                    <a
+                      href={repo.html_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex flex-col gap-3 p-5 rounded-2xl border border-foreground/8 bg-foreground/2 hover:bg-foreground/5 hover:border-emerald-500/20 transition-all duration-300 h-full"
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <h4 className="text-sm font-bold text-foreground font-syne group-hover:text-emerald-500 transition-colors duration-300 leading-snug">
+                          {repo.name}
+                        </h4>
+                        <ExternalLink className="w-3.5 h-3.5 text-foreground/20 group-hover:text-emerald-500 shrink-0 mt-0.5 transition-colors duration-300" />
+                      </div>
 
-                    <p className="text-xs font-mono text-foreground/40 leading-relaxed flex-1 line-clamp-2">
-                      {repo.description ?? "No description provided."}
-                    </p>
+                      <p className="text-xs font-mono text-foreground/40 leading-relaxed flex-1 line-clamp-2">
+                        {repo.description ?? "No description provided."}
+                      </p>
 
-                    <div className="flex items-center gap-4 mt-auto">
-                      {repo.language && (
-                        <span className="flex items-center gap-1.5 text-[10px] font-mono text-foreground/35">
-                          <span
-                            className="w-2 h-2 rounded-full shrink-0"
-                            style={{
-                              backgroundColor:
-                                languageColors[repo.language] ??
-                                languageColors.default,
-                            }}
-                          />
-                          {repo.language}
+                      <div className="flex items-center gap-4 mt-auto">
+                        {repo.language && (
+                          <span className="flex items-center gap-1.5 text-[10px] font-mono text-foreground/35">
+                            <span
+                              className="w-2 h-2 rounded-full shrink-0"
+                              style={{
+                                backgroundColor:
+                                  languageColors[repo.language] ??
+                                  languageColors.default,
+                              }}
+                            />
+                            {repo.language}
+                          </span>
+                        )}
+                        <span className="flex items-center gap-1 text-[10px] font-mono text-foreground/35">
+                          <Star className="w-3 h-3" />
+                          {repo.stargazers_count}
                         </span>
-                      )}
-                      <span className="flex items-center gap-1 text-[10px] font-mono text-foreground/35">
-                        <Star className="w-3 h-3" />
-                        {repo.stargazers_count}
-                      </span>
-                      <span className="flex items-center gap-1 text-[10px] font-mono text-foreground/35">
-                        <GitFork className="w-3 h-3" />
-                        {repo.forks_count}
-                      </span>
-                    </div>
-                  </a>
-                </FadeContent>
-              ))}
-            </div>
+                        <span className="flex items-center gap-1 text-[10px] font-mono text-foreground/35">
+                          <GitFork className="w-3 h-3" />
+                          {repo.forks_count}
+                        </span>
+                      </div>
+                    </a>
+                  </FadeContent>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>

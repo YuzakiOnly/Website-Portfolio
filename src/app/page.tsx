@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+import { useSearchParams } from "next/navigation";
 import AboutUs from "@/components/sections/about-us";
 import Education from "@/components/sections/education";
 import GitHubSection from "@/components/sections/github-section";
@@ -11,6 +13,19 @@ import WorkExperience from "@/components/sections/work-experience";
 import Contact from "@/components/sections/contact";
 
 export default function Home() {
+  const projectsRef = useRef<HTMLElement>(null);
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const scrollTo = searchParams.get("scrollTo");
+    if (scrollTo === "projects" && projectsRef.current) {
+      setTimeout(() => {
+        projectsRef.current?.scrollIntoView({ behavior: "smooth" });
+        window.history.replaceState({}, "", "/");
+      }, 100);
+    }
+  }, [searchParams]);
+
   return (
     <main className="relative min-h-screen overflow-hidden">
       <div className="relative z-10">
@@ -33,7 +48,7 @@ export default function Home() {
         <section id="github">
           <GitHubSection />
         </section>
-        <section id="projects">
+        <section id="projects" ref={projectsRef}>
           <MyProjects />
         </section>
         <section id="contact">

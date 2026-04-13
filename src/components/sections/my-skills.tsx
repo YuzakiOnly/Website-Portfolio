@@ -28,7 +28,7 @@ export default function MySkills() {
             <div className="flex items-center gap-3 mb-6 justify-center md:justify-start">
               <span className="block w-8 h-px bg-foreground/30" />
               <span className="text-xs font-mono tracking-[0.25em] uppercase text-foreground/40">
-                {t.skillsTag || "Skills"}
+                {t.skillsTag}
               </span>
             </div>
           </AnimatedContent>
@@ -41,10 +41,10 @@ export default function MySkills() {
             delay={0.4}
           >
             <h2 className="text-4xl md:text-5xl xl:text-[56px] font-bold leading-[1.1] tracking-tight text-foreground font-syne text-center md:text-left">
-              {t.skillsHeadline1 || "My"}
+              {t.skillsHeadline1}
               <br />
               <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-500 to-emerald-600">
-                {t.skillsHeadlineAccent || "Tech Stack"}
+                {t.skillsHeadlineAccent}
               </span>
             </h2>
           </FadeContent>
@@ -57,8 +57,7 @@ export default function MySkills() {
             delay={0.5}
           >
             <p className="mt-4 text-sm md:text-base text-foreground/45 font-mono leading-relaxed text-center md:text-left max-w-md">
-              {t.skillsDescription ||
-                "Technologies I work with and how confident I am using them."}
+              {t.skillsDescription}
             </p>
           </FadeContent>
         </div>

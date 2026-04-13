@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/set-state-in-effect */
 "use client";
@@ -6,66 +7,82 @@ import AnimatedContent from "../reactbits/AnimatedContent";
 import FadeContent from "../reactbits/FadeContent";
 import { useLanguage } from "@/context/language-context";
 import { useRef, useState, useEffect } from "react";
-import { ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+import {
+  ExternalLink,
+  ChevronLeft,
+  ChevronRight,
+  Loader2,
+  User,
+  Users,
+} from "lucide-react";
 import { FaGithub } from "react-icons/fa";
+import { ScrollArea } from "../ui/scroll-area";
+
+type ProjectType = "personal" | "collaboration";
+
+const ProjectTypeBadge = ({ type }: { type: ProjectType }) => {
+  const config = {
+    collaboration: { icon: Users, color: "violet", label: "Collaboration" },
+    personal: { icon: User, color: "sky", label: "Personal" },
+  };
+
+  const { icon: Icon, color, label } = config[type];
+
+  return (
+    <span
+      className={`px-2.5 py-1 rounded-full bg-${color}-500/15 backdrop-blur-sm border border-${color}-500/30 text-[10px] font-mono text-${color}-400 uppercase tracking-wider font-bold flex items-center gap-1.5`}
+    >
+      <Icon size={10} strokeWidth={2.5} />
+      {label}
+    </span>
+  );
+};
 
 export default function MyProjects() {
   const { t } = useLanguage();
+  const router = useRouter();
   const trackRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
 
-  const projects = [
-    {
-      title: t.project1Title,
-      description: t.project1Description,
-      thumbnail: t.project1Thumbnail,
-      tags: t.project1Tags,
-      liveUrl: t.project1LiveUrl,
-      repoUrl: t.project1RepoUrl,
-    },
-    {
-      title: t.project2Title,
-      description: t.project2Description,
-      thumbnail: t.project2Thumbnail,
-      tags: t.project2Tags,
-      liveUrl: t.project2LiveUrl,
-      repoUrl: t.project2RepoUrl,
-    },
-    {
-      title: t.project3Title,
-      description: t.project3Description,
-      thumbnail: t.project3Thumbnail,
-      tags: t.project3Tags,
-      liveUrl: t.project3LiveUrl,
-      repoUrl: t.project3RepoUrl,
-    },
-    {
-      title: t.project4Title,
-      description: t.project4Description,
-      thumbnail: t.project4Thumbnail,
-      tags: t.project4Tags,
-      liveUrl: t.project4LiveUrl,
-      repoUrl: t.project4RepoUrl,
-    },
-  ];
+   const getProjects = () => {
+     const projects = [];
+     let index = 1;
+
+     while ((t as any)[`project${index}Slug`] !== undefined) {
+       projects.push({
+         slug: (t as any)[`project${index}Slug`],
+         title: (t as any)[`project${index}Title`],
+         description: (t as any)[`project${index}Description`],
+         thumbnail: (t as any)[`project${index}Thumbnail`],
+         tags: (t as any)[`project${index}Tags`],
+         liveUrl: (t as any)[`project${index}LiveUrl`],
+         repoUrl: (t as any)[`project${index}RepoUrl`],
+         type: (t as any)[`project${index}Type`] as ProjectType,
+       });
+       index++;
+     }
+
+     return projects;
+   };
+
+  const projects = getProjects();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const scroll = (dir: "left" | "right") => {
+  const scroll = (direction: "left" | "right") => {
     if (!trackRef.current) return;
     const card = trackRef.current.querySelector("[data-card]") as HTMLElement;
     const amount = card ? card.offsetWidth + 24 : 360;
     trackRef.current.scrollBy({
-      left: dir === "right" ? amount : -amount,
+      left: direction === "right" ? amount : -amount,
       behavior: "smooth",
     });
   };
 
-  if (!mounted) {
-    return null;
-  }
+  if (!mounted) return null;
 
   return (
     <section className="relative bg-background py-24 overflow-hidden">
@@ -79,7 +96,6 @@ export default function MyProjects() {
             ease="power3.out"
             initialOpacity={0}
             animateOpacity
-            scale={1}
             threshold={0.1}
             delay={0.3}
           >
@@ -110,6 +126,15 @@ export default function MyProjects() {
                 <p className="mt-4 text-sm md:text-base text-foreground/45 font-mono leading-relaxed text-center md:text-left max-w-md">
                   {t.projectsDescription}
                 </p>
+                <div className="flex items-center gap-3 mt-4 justify-center md:justify-start">
+                  <span className="flex items-center gap-1.5 text-[10px] font-mono text-sky-400 uppercase tracking-wider">
+                    <User size={10} /> Personal
+                  </span>
+                  <span className="text-foreground/20">·</span>
+                  <span className="flex items-center gap-1.5 text-[10px] font-mono text-violet-400 uppercase tracking-wider">
+                    <Users size={10} /> Collaboration
+                  </span>
+                </div>
               </div>
             </FadeContent>
 
@@ -124,14 +149,12 @@ export default function MyProjects() {
                 <button
                   onClick={() => scroll("left")}
                   className="w-10 h-10 rounded-full border border-foreground/10 hover:border-emerald-500/40 flex items-center justify-center text-foreground/40 hover:text-emerald-500 transition-all duration-300"
-                  aria-label="Previous project"
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => scroll("right")}
                   className="w-10 h-10 rounded-full border border-foreground/10 hover:border-emerald-500/40 flex items-center justify-center text-foreground/40 hover:text-emerald-500 transition-all duration-300"
-                  aria-label="Next project"
                 >
                   <ChevronRight className="w-4 h-4" />
                 </button>
@@ -150,27 +173,41 @@ export default function MyProjects() {
       >
         <div
           ref={trackRef}
-          className="flex gap-6 overflow-x-auto scroll-smooth pb-6
-            [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex gap-6 overflow-x-auto scroll-smooth pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           style={{ maxWidth: "100vw" }}
         >
-          <div className="shrink-0 w-0 xl:w-40 " />
+          <div className="shrink-0 w-0 xl:w-40" />
 
-          {projects.map((project) => (
+          {projects.map((project, i) => (
             <article
-              key={project.title}
+              key={project.slug || i}
               data-card
-              className="group shrink-0 w-[320px] md:w-95 flex flex-col rounded-2xl border border-foreground/8 bg-foreground/2 hover:border-emerald-500/20 hover:bg-foreground/5 transition-all duration-300 overflow-hidden"
+              onClick={() =>
+                project.slug && router.push(`/projects/${project.slug}`)
+              }
+              className={`group shrink-0 w-[320px] md:w-95 flex flex-col rounded-2xl border border-foreground/8 bg-foreground/2 transition-all duration-300 overflow-hidden
+                ${project.slug ? "hover:border-emerald-500/20 hover:bg-foreground/5 cursor-pointer" : "opacity-60 cursor-not-allowed"}`}
             >
               <div className="relative w-full aspect-video bg-foreground/5 overflow-hidden">
+                <div className="absolute top-3 left-3 z-10 flex flex-col gap-1.5">
+                  {!project.slug && (
+                    <span className="px-2.5 py-1 rounded-full bg-red-500/20 backdrop-blur-sm border border-red-500/40 text-[10px] font-mono text-white/70 dark:text-red-500/70 uppercase tracking-wider font-bold flex items-center gap-1.5">
+                      <Loader2
+                        size={12}
+                        className="animate-spin"
+                        strokeWidth={2.5}
+                      />
+                      In Progress
+                    </span>
+                  )}
+                  <ProjectTypeBadge type={project.type} />
+                </div>
+
                 {project.thumbnail ? (
                   <img
                     src={project.thumbnail}
                     alt={project.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).style.display = "none";
-                    }}
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
@@ -189,6 +226,11 @@ export default function MyProjects() {
                 )}
 
                 <div className="absolute inset-0 bg-linear-to-t from-background/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span className="px-4 py-1.5 rounded-full bg-background/80 backdrop-blur-sm border border-foreground/10 text-[11px] font-mono text-foreground/70 uppercase tracking-wider">
+                    View details →
+                  </span>
+                </div>
 
                 <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   {project.repoUrl && (
@@ -198,7 +240,6 @@ export default function MyProjects() {
                       rel="noopener noreferrer"
                       className="w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-foreground/10 flex items-center justify-center text-foreground/60 hover:text-foreground transition-colors duration-200"
                       onClick={(e) => e.stopPropagation()}
-                      aria-label="View source code"
                     >
                       <FaGithub className="w-3.5 h-3.5" />
                     </a>
@@ -210,7 +251,6 @@ export default function MyProjects() {
                       rel="noopener noreferrer"
                       className="w-8 h-8 rounded-full bg-background/80 backdrop-blur-sm border border-foreground/10 flex items-center justify-center text-foreground/60 hover:text-emerald-500 transition-colors duration-200"
                       onClick={(e) => e.stopPropagation()}
-                      aria-label="Live demo"
                     >
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
@@ -223,9 +263,11 @@ export default function MyProjects() {
                   {project.title}
                 </h3>
 
-                <p className="text-xs font-mono text-foreground/40 leading-relaxed line-clamp-3 flex-1">
-                  {project.description}
-                </p>
+                <ScrollArea className="h-20 w-full pr-2">
+                  <p className="text-xs font-mono text-foreground/40 leading-relaxed">
+                    {project.description}
+                  </p>
+                </ScrollArea>
 
                 <div className="flex flex-wrap gap-1.5 mt-1">
                   {project.tags.map((tag: string) => (
@@ -245,6 +287,7 @@ export default function MyProjects() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-1.5 text-[11px] font-mono text-foreground/35 hover:text-foreground transition-colors duration-200"
+                      onClick={(e) => e.stopPropagation()}
                     >
                       <FaGithub className="w-3.5 h-3.5" />
                       {t.sourceLabel}
@@ -257,6 +300,7 @@ export default function MyProjects() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-1.5 text-[11px] font-mono text-emerald-500 hover:text-emerald-400 transition-colors duration-200 ml-auto"
+                      onClick={(e) => e.stopPropagation()}
                     >
                       {t.liveDemoLabel}
                       <ExternalLink className="w-3 h-3" />

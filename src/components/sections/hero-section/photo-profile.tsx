@@ -36,7 +36,7 @@ export default function PhotoProfile() {
           direction="normal"
           borderStyle="1.5px solid rgba(16,185,129,0.32)"
         />
-        
+
         <div
           className="absolute z-1 pointer-events-none"
           style={{
@@ -110,7 +110,7 @@ export default function PhotoProfile() {
           className="hidden sm:flex"
           style={{ top: "50%", left: "-2%", transform: "translateY(-50%)" }}
           dotColor="#8b5cf6"
-          label="3+ yrs exp"
+          label="2+ yrs exp"
         />
         <FloatTag
           className="hidden sm:flex"
@@ -122,7 +122,7 @@ export default function PhotoProfile() {
           className="hidden sm:flex"
           style={{ bottom: "6%", right: "4%" }}
           dotColor="#f59e0b"
-          label="TypeScript"
+          label="Laravel · Inertia JS"
         />
         <FloatTag
           className="hidden sm:flex"

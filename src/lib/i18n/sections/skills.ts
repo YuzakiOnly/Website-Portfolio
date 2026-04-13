@@ -7,8 +7,8 @@ export const skills = {
     },
     id: {
         skillsTag: "Keahlian",
-        skillsHeadline1: "Tech Stack",
-        skillsHeadlineAccent: "Saya",
+        skillsHeadline1: "Stack",
+        skillsHeadlineAccent: "Tech Saya",
         skillsDescription: "Teknologi yang saya gunakan dan seberapa percaya diri saya menggunakannya.",
     }
 } as const;

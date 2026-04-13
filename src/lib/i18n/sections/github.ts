@@ -15,8 +15,8 @@ export const github = {
     },
     id: {
         githubTag: "GitHub",
-        githubHeadline1: "Github Statistik",
-        githubHeadlineAccent: "Saya",
+        githubHeadline1: "Statistik",
+        githubHeadlineAccent: "Github Saya",
         githubDescription: "Sekilas tentang aktivitas coding dan kontribusi saya di GitHub.",
 
         labelRepos: "Repositori",

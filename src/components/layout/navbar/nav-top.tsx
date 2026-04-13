@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { HiCursorArrowRipple } from "react-icons/hi2";
@@ -22,6 +22,33 @@ export default function NavTop() {
   const { splashEnabled, toggleSplash } = useSplashCursor();
   const [isChanging, setIsChanging] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showSplashButton, setShowSplashButton] = useState(false);
+
+  useEffect(() => {
+    const checkMouseSupport = () => {
+      const isDesktop = window.matchMedia("(pointer: fine)").matches;
+      const hasMouse = window.matchMedia("(hover: hover)").matches;
+
+      setShowSplashButton(isDesktop && hasMouse);
+    };
+
+    checkMouseSupport();
+
+    const pointerMediaQuery = window.matchMedia("(pointer: fine)");
+    const hoverMediaQuery = window.matchMedia("(hover: hover)");
+
+    const handleChange = () => {
+      checkMouseSupport();
+    };
+
+    pointerMediaQuery.addEventListener("change", handleChange);
+    hoverMediaQuery.addEventListener("change", handleChange);
+
+    return () => {
+      pointerMediaQuery.removeEventListener("change", handleChange);
+      hoverMediaQuery.removeEventListener("change", handleChange);
+    };
+  }, []);
 
   const toggleLanguage = () => {
     if (isChanging) return;
@@ -94,33 +121,35 @@ export default function NavTop() {
               delay={1.5}
             >
               <div className="flex items-center gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={toggleSplash}
-                  title={
-                    splashEnabled
-                      ? "Disable splash cursor"
-                      : "Enable splash cursor"
-                  }
-                  className="gap-1.5 bg-muted/50 border-border text-foreground hover:bg-muted/80 shadow-sm cursor-pointer transition-all duration-300"
-                >
-                  <span
-                    className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${
+                {showSplashButton && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={toggleSplash}
+                    title={
                       splashEnabled
-                        ? "bg-emerald-400"
-                        : "bg-muted-foreground/40"
-                    }`}
-                  />
-                  <HiCursorArrowRipple
-                    size={14}
-                    className={`transition-colors duration-300 ${
-                      splashEnabled
-                        ? "text-emerald-400"
-                        : "text-muted-foreground/40"
-                    }`}
-                  />
-                </Button>
+                        ? "Disable splash cursor"
+                        : "Enable splash cursor"
+                    }
+                    className="gap-1.5 bg-muted/50 border-border text-foreground hover:bg-muted/80 shadow-sm cursor-pointer transition-all duration-300"
+                  >
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${
+                        splashEnabled
+                          ? "bg-emerald-400"
+                          : "bg-muted-foreground/40"
+                      }`}
+                    />
+                    <HiCursorArrowRipple
+                      size={14}
+                      className={`transition-colors duration-300 ${
+                        splashEnabled
+                          ? "text-emerald-400"
+                          : "text-muted-foreground/40"
+                      }`}
+                    />
+                  </Button>
+                )}
                 <ThemeToggle />
               </div>
             </AnimatedContent>

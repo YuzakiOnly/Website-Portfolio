@@ -35,6 +35,7 @@ export default function AboutUs() {
     { value: t.stat1Value, label: t.stat1Label },
     { value: t.stat2Value, label: t.stat2Label },
     { value: t.stat3Value, label: t.stat3Label },
+    { value: t.stat4Value, label: t.stat4Label },
   ];
 
   return (
@@ -115,6 +116,9 @@ export default function AboutUs() {
                 <p className="text-xs md:text-sm text-foreground/40 leading-relaxed font-mono">
                   {t.journeyP2}
                 </p>
+                <p className="text-xs md:text-sm text-foreground/40 leading-relaxed font-mono">
+                  {t.journeyP3}
+                </p>
               </div>
             </FadeContent>
 
@@ -158,7 +162,10 @@ export default function AboutUs() {
               delay={0.9}
             >
               <div className="flex justify-center md:justify-start">
-                <button onClick={() => scrollToSection("github")} className="group px-6 md:px-8 py-3 md:py-3.5 bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 flex items-center gap-2 shadow-lg shadow-emerald-500/25 text-sm md:text-base font-montserrat cursor-pointer">
+                <button
+                  onClick={() => scrollToSection("github")}
+                  className="group px-6 md:px-8 py-3 md:py-3.5 bg-linear-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 flex items-center gap-2 shadow-lg shadow-emerald-500/25 text-sm md:text-base font-montserrat cursor-pointer"
+                >
                   {t.viewMyWork}
                   <ArrowRight
                     size={18}

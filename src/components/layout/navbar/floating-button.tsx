@@ -89,10 +89,10 @@ export default function FloatingButtons() {
     {
       icon: <FaWhatsapp className="h-4 w-4" />,
       label: "WhatsApp",
-      sub: "+62 852-3182-3088",
+      sub: "+62 856-0732-2468",
       onClick: () => {
         window.open(
-          "https://wa.me/6285231823088?text=Hi%20Arya%2C%20I%20found%20your%20portfolio%20and%20would%20like%20to%20connect!",
+          "https://wa.me/6285607322468?text=Hi%20Arya%2C%20I%20found%20your%20portfolio%20and%20would%20like%20to%20connect!",
           "_blank",
         );
       },
@@ -100,17 +100,31 @@ export default function FloatingButtons() {
     },
     {
       icon: <Download className="h-4 w-4" />,
-      label: "Download CV",
-      sub: "Cv_Arya.PDF",
+      label: "Download CV (EN)",
+      sub: "CV_English.pdf",
       onClick: () => {
         const link = document.createElement("a");
-        link.href = "/assets/CV_M_ARYA_ARDIANSYAH.pdf";
-        link.download = "CV-M-Arya-Ardiansyah.pdf";
+        link.href = "/assets/CV. M. ARYA ARDIANSYAH EN.pdf";
+        link.download = "CV-English-Arya.pdf";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
       },
       color: "bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20",
+    },
+    {
+      icon: <Download className="h-4 w-4" />,
+      label: "Download CV (ID)",
+      sub: "CV_Indonesia.pdf",
+      onClick: () => {
+        const link = document.createElement("a");
+        link.href = "/assets/CV. M. ARYA ARDIANSYAH ID.pdf";
+        link.download = "CV-Indonesia-Arya.pdf";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      },
+      color: "bg-blue-500/10 text-blue-400 hover:bg-blue-500/20",
     },
     {
       icon: <FaLinkedin className="h-4 w-4" />,
