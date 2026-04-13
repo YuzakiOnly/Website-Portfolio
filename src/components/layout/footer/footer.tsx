@@ -4,7 +4,6 @@
 import { useLanguage } from "@/context/language-context";
 import { ArrowUp, Calendar } from "lucide-react";
 import { IoLogoInstagram, IoLogoGithub, IoLogoFacebook } from "react-icons/io5";
-import { useEffect, useState } from "react";
 
 const socials = [
   {
@@ -27,17 +26,6 @@ const socials = [
 export default function Footer() {
   const { t } = useLanguage();
   const year = new Date().getFullYear();
-  const [lastUpdated, setLastUpdated] = useState("");
-
-  useEffect(() => {
-    const today = new Date();
-    const formattedDate = today.toLocaleDateString("en-US", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
-    setLastUpdated(formattedDate);
-  }, []);
 
   const navLinks = [
     { label: t.navAbout, href: "#about", sectionId: "about" },
@@ -158,8 +146,8 @@ export default function Footer() {
             <div className="hidden md:block w-px h-3 bg-foreground/15" />
             <p className="text-[11px] font-mono text-foreground/20 text-center flex items-center gap-1">
               <Calendar className="w-3 h-3" />
-              Last updated:{" "}
-              <span className="text-foreground/35">{lastUpdated}</span>
+              Last Update |
+              <span className="text-foreground/35">April 13, 2026</span>
             </p>
           </div>
         </div>
