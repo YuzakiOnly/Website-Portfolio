@@ -79,7 +79,7 @@ export default function NavTop() {
                   variant="outline"
                   size="icon"
                   onClick={() => setSidebarOpen(true)}
-                  className="sm:hidden bg-muted/50 border-border text-foreground hover:bg-muted/80 shadow-sm cursor-pointer transition-all duration-300"
+                  className="lg:hidden bg-muted/50 border-border text-foreground hover:bg-muted/80 shadow-sm cursor-pointer transition-all duration-300"
                   aria-label="Open menu"
                 >
                   <Menu className="w-4 h-4" />

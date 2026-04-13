@@ -4,8 +4,11 @@ import FadeContent from "@/components/reactbits/FadeContent";
 import AnimatedContent from "@/components/reactbits/AnimatedContent";
 import TrueFocus from "@/components/reactbits/TrueFocus";
 import TextType from "@/components/reactbits/TextType";
+import { useLanguage } from "@/context/language-context";
 
 export default function HeroGreeting() {
+    const { t } = useLanguage(); 
+  
   return (
     <div className="flex flex-col items-center text-center w-full text-foreground">
       <FadeContent
@@ -39,21 +42,16 @@ export default function HeroGreeting() {
         threshold={0.1}
         delay={0}
       >
-        <div className="flex items-center gap-3 mt-3 justify-center">
-          <div className="h-1 w-8 bg-emerald-500 rounded-full" />
+        <div className="flex items-center gap-3 mt-3 justify-start">
+          <div className="h-1 w-12 bg-emerald-500 rounded-full" />
           <TextType
-            text={[
-              "FRONT END DEVELOPER",
-              "UI/UX DESIGNER",
-              "REACT EXPERT",
-              "CREATIVE CODER",
-            ]}
+            text={[...t.roles]}
             typingSpeed={75}
             pauseDuration={1500}
             showCursor
             cursorCharacter="_"
             deletingSpeed={50}
-            className="text-emerald-500 dark:text-emerald-400 font-medium tracking-wide text-sm"
+            className="text-emerald-500 dark:text-emerald-400 font-medium tracking-wide text-base"
           />
         </div>
       </AnimatedContent>

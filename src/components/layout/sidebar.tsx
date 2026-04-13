@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -10,17 +11,20 @@ interface SidebarProps {
 }
 
 const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Education", href: "#education" },
-  { label: "Work Experience", href: "#work" },
-  { label: "Skills", href: "#skills" },
-  { label: "GitHub", href: "#github" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/", sectionId: "home" },
+  { label: "About", href: "/#about", sectionId: "about" },
+  { label: "Education", href: "/#education", sectionId: "education" },
+  { label: "Work Experience", href: "/#work", sectionId: "work" },
+  { label: "Skills", href: "/#skills", sectionId: "skills" },
+  { label: "GitHub", href: "/#github", sectionId: "github" },
+  { label: "Projects", href: "/#projects", sectionId: "projects" },
+  { label: "Contact", href: "/#contact", sectionId: "contact" },
 ];
 
 export default function Sidebar({ open, onClose }: SidebarProps) {
+  const pathname = usePathname();
+  const router = useRouter();
+
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
@@ -31,6 +35,25 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
       document.body.style.overflow = "";
     };
   }, [open]);
+
+  const handleNavigation = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+    sectionId: string,
+  ) => {
+    e.preventDefault();
+
+    if (pathname === "/") {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    } else {
+      router.push(`/#${sectionId}`);
+    }
+
+    onClose();
+  };
 
   return (
     <>
@@ -67,8 +90,8 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
             <a
               key={link.href}
               href={link.href}
-              onClick={onClose}
-              className="font-montserrat font-semibold text-sm tracking-wider uppercase px-3 py-3 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors duration-200"
+              onClick={(e) => handleNavigation(e, link.href, link.sectionId)}
+              className="font-montserrat font-semibold text-sm tracking-wider uppercase px-3 py-3 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors duration-200 cursor-pointer"
             >
               {link.label}
             </a>

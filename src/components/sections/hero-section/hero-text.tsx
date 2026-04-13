@@ -16,10 +16,16 @@ export default function HeroText({
   const { t } = useLanguage(); 
 
   const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
+    const attemptScroll = (retries = 0) => {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else if (retries < 10) {
+        setTimeout(() => attemptScroll(retries + 1), 100);
+      }
+    };
+
+    attemptScroll();
   };
 
   return (
@@ -156,7 +162,8 @@ export default function HeroText({
         >
           <button
             onClick={() => scrollToSection("projects")}
-            className="px-6 md:px-8 py-3 md:py-3.5 border-2 border-emerald-500 text-emerald-500 dark:text-emerald-400 dark:hover:text-white dark:border-emerald-400 hover:bg-emerald-500 hover:text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 text-sm md:text-base cursor-pointer"
+            className="px-6 md:px-8 py-3 md:py-3.5 border-2 border-emerald-500 text-emerald-500 dark:text-emerald-400 dark:hover:text-white dark:border-emerald-400 hover:bg-emerald-500 hover:text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 text-sm md:text-base cursor-pointer relative z-50 touch-manipulation"
+            style={{ touchAction: "manipulation" }}
           >
             {t.myProjects}
           </button>

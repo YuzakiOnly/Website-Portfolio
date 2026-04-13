@@ -27,6 +27,20 @@ function HomeContent() {
     }
   }, [searchParams]);
 
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash && hash !== "") {
+      const sectionId = hash.substring(1);
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+          window.history.replaceState({}, "", "/");
+        }
+      }, 500); 
+    }
+  }, []); 
+
   return (
     <main className="relative min-h-screen overflow-hidden">
       <div className="relative z-10">

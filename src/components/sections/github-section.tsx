@@ -19,12 +19,12 @@ const TARGET_REPOSITORIES = [
 ];
 
 const REPO_FILTER_CONFIG = {
-  mode: "whitelist" as "whitelist" | "featured", 
-  maxRepos: 6, 
-  minStars: 0, 
-  excludeForks: true, 
-  excludeArchived: true, 
-  sortBy: "stars" as "stars" | "updated" | "created", 
+  mode: "whitelist" as "whitelist" | "featured",
+  maxRepos: 6,
+  minStars: 0,
+  excludeForks: true,
+  excludeArchived: true,
+  sortBy: "stars" as "stars" | "updated" | "created",
 };
 
 interface GitHubProfile {
@@ -81,18 +81,27 @@ export default function GitHubSection() {
         setError(null);
 
         const [profileRes, reposRes] = await Promise.all([
-          fetch(`https://api.github.com/users/${GITHUB_USERNAME}`),
-          fetch(
-            `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`, // Fetch lebih banyak untuk filtering
-          ),
+          fetch(`/api/github/profile`),
+          fetch(`/api/github/repos`),
         ]);
 
-        if (!profileRes.ok || !reposRes.ok) {
-          throw new Error("Failed to fetch GitHub data");
-        }
+        const getErrorMessage = (res: Response) => {
+          if (res.status === 403)
+            return "GitHub API access forbidden. Check your token permissions.";
+          if (res.status === 404)
+            return `GitHub user "${GITHUB_USERNAME}" not found.`;
+          if (res.status === 429)
+            return "Too many requests to GitHub API. Please wait a moment.";
+          if (res.status >= 500)
+            return `Server error (${res.status}). Try again later.`;
+          return `Error: ${res.status} ${res.statusText}`;
+        };
 
-        const profileData = await profileRes.json();
-        const reposData = await reposRes.json();
+        if (!profileRes.ok) throw new Error(getErrorMessage(profileRes));
+        if (!reposRes.ok) throw new Error(getErrorMessage(reposRes));
+
+        const profileData: GitHubProfile = await profileRes.json();
+        const reposData: GitHubRepo[] = await reposRes.json();
 
         setProfile(profileData);
 
@@ -102,12 +111,12 @@ export default function GitHubSection() {
           REPO_FILTER_CONFIG.mode === "whitelist" &&
           TARGET_REPOSITORIES.length > 0
         ) {
-          filteredRepos = filteredRepos.filter((repo: GitHubRepo) =>
+          filteredRepos = filteredRepos.filter((repo) =>
             TARGET_REPOSITORIES.includes(repo.name),
           );
         } else if (REPO_FILTER_CONFIG.mode === "featured") {
           filteredRepos = filteredRepos.filter(
-            (repo: GitHubRepo) =>
+            (repo) =>
               repo.topics?.includes("featured") ||
               repo.topics?.includes("portfolio") ||
               repo.description?.toLowerCase().includes("project") ||
@@ -117,38 +126,30 @@ export default function GitHubSection() {
         }
 
         if (REPO_FILTER_CONFIG.excludeForks) {
-          filteredRepos = filteredRepos.filter(
-            (repo: GitHubRepo) => !repo.fork,
-          );
+          filteredRepos = filteredRepos.filter((repo) => !repo.fork);
         }
 
         if (REPO_FILTER_CONFIG.excludeArchived) {
-          filteredRepos = filteredRepos.filter(
-            (repo: GitHubRepo) => !repo.archived,
-          );
+          filteredRepos = filteredRepos.filter((repo) => !repo.archived);
         }
 
         if (REPO_FILTER_CONFIG.minStars > 0) {
           filteredRepos = filteredRepos.filter(
-            (repo: GitHubRepo) =>
-              repo.stargazers_count >= REPO_FILTER_CONFIG.minStars,
+            (repo) => repo.stargazers_count >= REPO_FILTER_CONFIG.minStars,
           );
         }
 
         if (REPO_FILTER_CONFIG.sortBy === "stars") {
-          filteredRepos.sort(
-            (a: GitHubRepo, b: GitHubRepo) =>
-              b.stargazers_count - a.stargazers_count,
-          );
+          filteredRepos.sort((a, b) => b.stargazers_count - a.stargazers_count);
         } else if (REPO_FILTER_CONFIG.sortBy === "updated") {
           filteredRepos.sort(
-            (a: GitHubRepo, b: GitHubRepo) =>
+            (a, b) =>
               new Date(b.updated_at).getTime() -
               new Date(a.updated_at).getTime(),
           );
         } else if (REPO_FILTER_CONFIG.sortBy === "created") {
           filteredRepos.sort(
-            (a: GitHubRepo, b: GitHubRepo) =>
+            (a, b) =>
               new Date(b.created_at).getTime() -
               new Date(a.created_at).getTime(),
           );
@@ -157,7 +158,11 @@ export default function GitHubSection() {
         setRepos(filteredRepos.slice(0, REPO_FILTER_CONFIG.maxRepos));
       } catch (e) {
         console.error("Error fetching GitHub data:", e);
-        setError("Failed to load GitHub data. Please try again later.");
+        setError(
+          e instanceof Error
+            ? e.message
+            : "Failed to load GitHub data. Please try again later.",
+        );
       } finally {
         setLoading(false);
       }
@@ -228,8 +233,8 @@ export default function GitHubSection() {
         </div>
 
         {loading ? (
-          <div className="flex flex-col gap-8 animate-pulse">
-            <div className="flex gap-6">
+          <div className="flex flex-col gap-6 animate-pulse">
+            <div className="flex gap-4">
               {[1, 2, 3].map((i) => (
                 <div
                   key={i}
