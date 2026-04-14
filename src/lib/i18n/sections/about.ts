@@ -28,7 +28,7 @@ export const about = {
         aboutHeadlineAccent: "PROYEK WEBSITE",
         aboutHeadline2: "ANDA",
         aboutDescription:
-            "Saya adalah Full-Stack Developer dengan pengalaman teknis 2+ tahun dalam membangun aplikasi web yang fungsional, scalable, dan berorientasi pada pengguna.Saya menerapkan praktik terbaik dalam pengembangan untuk memastikan kode yang bersih,terstruktur, dan mudah dikelola.",
+            "Saya adalah Full-Stack Developer dengan pengalaman teknis 1+ tahun dalam membangun aplikasi web yang fungsional, scalable, dan berorientasi pada pengguna.Saya menerapkan praktik terbaik dalam pengembangan untuk memastikan kode yang bersih,terstruktur, dan mudah dikelola.",
         journeyTitle: "Perjalananku",
         journeyP1:
             "Perjalanan saya dimulai dari eksplorasi desain antarmuka menggunakan Figma. Ketertarikan pada aspek visual membawa saya mempelajari HTML dan CSS untuk mewujudkan desain menjadi halaman web yang fungsional. Seiring kebutuhan akan interaktivitas yang lebih dinamis, saya mendalami PHP dan Laravel, serta mengembangkan game sederhana menggunakan Construct 2 — pengalaman yang mengasah logika dan kreativitas secara bersamaan.",
@@ -37,7 +37,7 @@ export const about = {
         journeyP3:
             "Saat ini, saya siap menghadapi tantangan baru dan terus berkembang sebagai developer profesional.",
         viewMyWork: "LIHAT KARYA SAYA",
-        stat1Value: "2+",
+        stat1Value: "1+",
         stat1Label: "Tahun Pengalaman",
         stat2Value: "10+",
         stat2Label: "Proyek Selesai",
