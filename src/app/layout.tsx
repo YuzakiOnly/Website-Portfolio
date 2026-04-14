@@ -8,6 +8,7 @@ import { LanguageProvider } from "@/context/language-context";
 import { SplashCursorProvider } from "@/context/splash-cursor-context";
 import Footer from "@/components/layout/footer/footer";
 import SplashCursor from "@/components/reactbits/SplashCursor";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -63,6 +64,8 @@ export default function RootLayout({
             </SplashCursorProvider>
           </LanguageProvider>
         </ThemeProvider>
+
+        <SpeedInsights />
       </body>
     </html>
   );
