@@ -33,7 +33,7 @@ export const about = {
         journeyP1:
             "Perjalanan saya dimulai dari eksplorasi desain antarmuka menggunakan Figma. Ketertarikan pada aspek visual membawa saya mempelajari HTML dan CSS untuk mewujudkan desain menjadi halaman web yang fungsional. Seiring kebutuhan akan interaktivitas yang lebih dinamis, saya mendalami PHP dan Laravel, serta mengembangkan game sederhana menggunakan Construct 2 — pengalaman yang mengasah logika dan kreativitas secara bersamaan.",
         journeyP2:
-            "Selanjutnya, saya memperluas kemampuan ke ekosistem full-stack modern dengan menguasai Next.js dan JavaScript. Selama 6 bulan magang, saya mengerjakan 4 proyek nyata yang mengajarkan kolaborasi tim, pemenuhan deadline, serta delivery solusi yang benar-benar bekerja di dunia nyata.",
+            "Selanjutnya, saya memperluas kemampuan ke ekosistem full-stack modern dengan menguasai Next.JS dan JavaScript. Selama 6 bulan magang, saya mengerjakan 4 proyek nyata yang mengajarkan kolaborasi tim, pemenuhan deadline, serta delivery solusi yang benar-benar bekerja di dunia nyata.",
         journeyP3:
             "Saat ini, saya siap menghadapi tantangan baru dan terus berkembang sebagai developer profesional.",
         viewMyWork: "LIHAT KARYA SAYA",
