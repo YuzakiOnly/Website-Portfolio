@@ -65,11 +65,13 @@ export default function NavLeft() {
   const pathname = usePathname();
   const router = useRouter();
   const [activeSection, setActiveSection] = useState<string>("home");
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(() => pathname === "/");
 
   useEffect(() => {
     if (pathname !== "/") {
       setIsOpen(false);
+    } else {
+      setIsOpen(true);
     }
   }, [pathname]);
 

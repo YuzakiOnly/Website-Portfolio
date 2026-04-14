@@ -5,14 +5,14 @@ export const about = {
         aboutHeadlineAccent: "FOR WEBSITE",
         aboutHeadline2: "PROJECT",
         aboutDescription:
-            "I am a Full-Stack Developer with 2+ years of technical experience in building functional, scalable, and user-oriented web applications. I apply best practices in development to ensure clean, structured, and maintainable code.",
+            "I am a Full-Stack Developer with 1+ years of technical experience in building functional, scalable, and user-oriented web applications. I apply best practices in development to ensure clean, structured, and maintainable code.",
         journeyTitle: "My Journey",
         journeyP1:
             "My journey began with exploring interface design using Figma. An interest in the visual aspect led me to learn HTML and CSS to bring designs to life as functional web pages. As the need for more dynamic interactivity grew, I delved into PHP and Laravel, and developed simple games using Construct 2 — an experience that honed both logic and creativity simultaneously.",
         journeyP2: "Next, I expanded my skills into the modern full-stack ecosystem by mastering Next.js and JavaScript. During a 6-month internship, I worked on 4 real-world projects that taught me team collaboration, meeting deadlines, and delivering solutions that truly work in the real world.",
         journeyP3: "Now, I am ready to take on new challenges and continue growing as a professional developer.",
         viewMyWork: "VIEW MY WORK",
-        stat1Value: "2+",
+        stat1Value: "1+",
         stat1Label: "Years Experience",
         stat2Value: "10+",
         stat2Label: "Projects Completed",

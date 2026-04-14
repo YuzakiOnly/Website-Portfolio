@@ -43,13 +43,15 @@ export default function ProjectNavigation({
             </div>
           </button>
         ) : (
-          <div className="hidden md:block" />
+          <div />
         )}
 
         {nextProject ? (
           <button
             onClick={() => router.push(`/projects/${nextProject.slug}`)}
-            className="group flex items-center justify-between gap-4 p-5 rounded-2xl border border-foreground/8 bg-foreground/2 hover:border-emerald-500/20 hover:bg-foreground/5 transition-all duration-300 text-right"
+            className={`group flex items-center p-5 rounded-2xl border border-foreground/8 bg-foreground/2 hover:border-emerald-500/20 hover:bg-foreground/5 transition-all duration-300 text-right ${
+              !prevProject ? "justify-end col-span-2" : "justify-between"
+            }`}
           >
             <div className="min-w-0 flex-1">
               <p className="text-[10px] font-mono uppercase tracking-wider text-foreground/30 mb-1">
@@ -62,7 +64,7 @@ export default function ProjectNavigation({
             <ArrowRight className="w-4 h-4 text-foreground/30 group-hover:text-emerald-500 transition-colors shrink-0" />
           </button>
         ) : (
-          <div className="hidden md:block" />
+          <div />
         )}
       </div>
     </div>

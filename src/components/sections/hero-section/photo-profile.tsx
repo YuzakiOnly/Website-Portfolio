@@ -110,7 +110,7 @@ export default function PhotoProfile() {
           className="hidden sm:flex"
           style={{ top: "50%", left: "-2%", transform: "translateY(-50%)" }}
           dotColor="#8b5cf6"
-          label="2+ yrs exp"
+          label="1+ yrs exp"
         />
         <FloatTag
           className="hidden sm:flex"
